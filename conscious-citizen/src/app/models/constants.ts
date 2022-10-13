@@ -1,0 +1,4 @@
+export enum PASSWORD_INPUT_TYPE {
+    PASSWORD,
+    REPEAT_PASSWORD
+}

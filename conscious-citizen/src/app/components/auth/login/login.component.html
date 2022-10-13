@@ -1,0 +1,36 @@
+<div class="login-wrapper">
+    <nb-card size="medium" class="login-form">
+        <nb-card-header class="login-form__header">
+            <div class="header__text">
+                Вход
+            </div>
+        </nb-card-header>
+        <nb-card-body class="login-form__body">
+            <div class="body__input">
+                <label>Логин</label>
+                <input nbInput fullWidth type="text" placeholder="ВашЛогин@mailbox.com">
+            </div>
+            <div class="body__input">
+                <label>Пароль</label>
+                <nb-form-field>
+                    <input nbInput fullWidth [type]="getInputType()" placeholder="Ваш пароль">
+                    <button nbSuffix nbButton ghost (click)="toggleShowPassword()">
+                        <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
+                                 pack="eva"
+                                 [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
+                        </nb-icon>
+                    </button>
+                </nb-form-field>
+            </div>
+            <div class="body__button">
+                <div class="login-link">
+                    <label>Забыли пароль? <a [routerLink]="'/reset-password'">Восстановите</a></label>
+                </div>
+                <div class="login-link">
+                    <label>Ещё нет аккаунта? <a [routerLink]="'/registration'">Зарегистрируйтесь</a></label>
+                </div>
+                <button nbButton fullWidth status="primary">ВОЙТИ</button>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</div>

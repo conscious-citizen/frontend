@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-
-enum PasswordInputTypes {
-    PASSWORD,
-    REPEAT_PASSWORD
-}
+import {PASSWORD_INPUT_TYPE} from "../../../models/constants";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-registration',
@@ -13,6 +10,7 @@ export class RegistrationComponent implements OnInit {
 
     showPassword = false;
     showRepeatPassword = false;
+    passwordInputType = PASSWORD_INPUT_TYPE;
 
     constructor() {
     }
@@ -20,14 +18,14 @@ export class RegistrationComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    getInputType(inputType: PasswordInputTypes) {
+    getInputType(inputType: PASSWORD_INPUT_TYPE) {
         switch (inputType) {
-            case PasswordInputTypes.PASSWORD:
+            case PASSWORD_INPUT_TYPE.PASSWORD:
                 if (this.showPassword) {
                     return 'text';
                 }
                 return 'password';
-            case PasswordInputTypes.REPEAT_PASSWORD:
+            case PASSWORD_INPUT_TYPE.REPEAT_PASSWORD:
                 if (this.showRepeatPassword) {
                     return 'text';
                 }
@@ -35,12 +33,12 @@ export class RegistrationComponent implements OnInit {
         }
     }
 
-    toggleShowPassword(inputType: PasswordInputTypes) {
+    toggleShowPassword(inputType: PASSWORD_INPUT_TYPE) {
         switch (inputType) {
-            case PasswordInputTypes.PASSWORD:
+            case PASSWORD_INPUT_TYPE.PASSWORD:
                 this.showPassword = !this.showPassword;
                 break;
-            case PasswordInputTypes.REPEAT_PASSWORD:
+            case PASSWORD_INPUT_TYPE.REPEAT_PASSWORD:
                 this.showRepeatPassword = !this.showRepeatPassword;
                 break;
         }
