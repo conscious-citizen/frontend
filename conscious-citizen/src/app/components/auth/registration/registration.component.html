@@ -8,7 +8,14 @@
         <nb-card-body class="registration-form__body">
             <div class="body__input">
                 <label>Логин</label>
-                <input nbInput fullWidth type="text" placeholder="ВашЛогин@mailbox.com">
+                <input nbInput fullWidth type="text" placeholder="Ваш логин">
+            </div>
+            <div class="body__input">
+                <label>Почта</label>
+                <nb-form-field>
+                    <nb-icon nbPrefix icon="at-outline" pack="eva"></nb-icon>
+                    <input nbInput fullWidth type="text" placeholder="Ваша Почта@mailbox.com">
+                </nb-form-field>
             </div>
             <div class="body__input">
                 <label>Пароль</label>
@@ -25,7 +32,8 @@
             <div class="body__input">
                 <label>Повторите пароль</label>
                 <nb-form-field>
-                    <input nbInput fullWidth [type]="getInputType(passwordInputType.REPEAT_PASSWORD)" placeholder="Повторите ваш пароль">
+                    <input nbInput fullWidth [type]="getInputType(passwordInputType.REPEAT_PASSWORD)"
+                           placeholder="Повторите ваш пароль">
                     <button nbSuffix nbButton ghost (click)="toggleShowPassword(passwordInputType.REPEAT_PASSWORD)">
                         <nb-icon [icon]="showRepeatPassword ? 'eye-outline' : 'eye-off-2-outline'"
                                  pack="eva"
@@ -33,6 +41,39 @@
                         </nb-icon>
                     </button>
                 </nb-form-field>
+            </div>
+            <div class="body__input">
+                <label>Телефон</label>
+                <nb-form-field>
+                    <nb-icon nbPrefix icon="phone-outline" pack="eva"></nb-icon>
+                    <input nbInput fullWidth type="text" placeholder="+79990001122">
+                </nb-form-field>
+            </div>
+            <div class="body__input">
+                <label>ФИО</label>
+                <input nbInput fullWidth type="text" placeholder="Имя Фамилия Отчество">
+            </div>
+            <div class="body__input_address">
+                <div class="city">
+                    <label>Город</label>
+                    <input nbInput fullWidth type="text" placeholder="Самара">
+                </div>
+                <div class="street">
+                    <label>Улица</label>
+                    <input nbInput fullWidth type="text" placeholder="Московское шоссе">
+                </div>
+                <div class="building">
+                    <label>Дом</label>
+                    <input nbInput fullWidth type="text" placeholder="1">
+                </div>
+                <div class="letter">
+                    <label>Литер</label>
+                    <input nbInput fullWidth type="text" placeholder="Б">
+                </div>
+                <div class="flat-number">
+                    <label>Квартира</label>
+                    <input nbInput fullWidth type="text" placeholder="1">
+                </div>
             </div>
             <div class="body__button">
                 <div class="login-link">
