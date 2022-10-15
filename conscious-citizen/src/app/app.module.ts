@@ -14,11 +14,15 @@ import {
     NbThemeModule
 } from "@nebular/theme";
 import {NbEvaIconsModule} from "@nebular/eva-icons";
+import {LoginComponent} from "./components/auth/login/login.component";
+import { PageNotFoundComponent } from './shared-components/page-not-found/page-not-found.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        RegistrationComponent
+        RegistrationComponent,
+        LoginComponent,
+        PageNotFoundComponent
     ],
     imports: [
         BrowserModule,

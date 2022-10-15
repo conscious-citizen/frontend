@@ -8,13 +8,20 @@
         <nb-card-body class="registration-form__body">
             <div class="body__input">
                 <label>Логин</label>
-                <input nbInput fullWidth type="text" placeholder="ВашЛогин@mailbox.com">
+                <input nbInput fullWidth type="text" placeholder="Ваш логин">
+            </div>
+            <div class="body__input">
+                <label>Почта</label>
+                <nb-form-field>
+                    <nb-icon nbPrefix icon="at-outline" pack="eva"></nb-icon>
+                    <input nbInput fullWidth type="text" placeholder="Ваша Почта@mailbox.com">
+                </nb-form-field>
             </div>
             <div class="body__input">
                 <label>Пароль</label>
                 <nb-form-field>
-                    <input nbInput fullWidth [type]="getInputType(0)" placeholder="Ваш пароль">
-                    <button nbSuffix nbButton ghost (click)="toggleShowPassword(0)">
+                    <input nbInput fullWidth [type]="getInputType(passwordInputType.PASSWORD)" placeholder="Ваш пароль">
+                    <button nbSuffix nbButton ghost (click)="toggleShowPassword(passwordInputType.PASSWORD)">
                         <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
                                  pack="eva"
                                  [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
@@ -25,8 +32,9 @@
             <div class="body__input">
                 <label>Повторите пароль</label>
                 <nb-form-field>
-                    <input nbInput fullWidth [type]="getInputType(1)" placeholder="Повторите ваш пароль">
-                    <button nbSuffix nbButton ghost (click)="toggleShowPassword(1)">
+                    <input nbInput fullWidth [type]="getInputType(passwordInputType.REPEAT_PASSWORD)"
+                           placeholder="Повторите ваш пароль">
+                    <button nbSuffix nbButton ghost (click)="toggleShowPassword(passwordInputType.REPEAT_PASSWORD)">
                         <nb-icon [icon]="showRepeatPassword ? 'eye-outline' : 'eye-off-2-outline'"
                                  pack="eva"
                                  [attr.aria-label]="showRepeatPassword ? 'hide password' : 'show password'">
@@ -34,11 +42,44 @@
                     </button>
                 </nb-form-field>
             </div>
+            <div class="body__input">
+                <label>Телефон</label>
+                <nb-form-field>
+                    <nb-icon nbPrefix icon="phone-outline" pack="eva"></nb-icon>
+                    <input nbInput fullWidth type="text" placeholder="+79990001122">
+                </nb-form-field>
+            </div>
+            <div class="body__input">
+                <label>ФИО</label>
+                <input nbInput fullWidth type="text" placeholder="Имя Фамилия Отчество">
+            </div>
+            <div class="body__input_address">
+                <div class="city">
+                    <label>Город</label>
+                    <input nbInput fullWidth type="text" placeholder="Самара">
+                </div>
+                <div class="street">
+                    <label>Улица</label>
+                    <input nbInput fullWidth type="text" placeholder="Московское шоссе">
+                </div>
+                <div class="building">
+                    <label>Дом</label>
+                    <input nbInput fullWidth type="text" placeholder="1">
+                </div>
+                <div class="letter">
+                    <label>Литер</label>
+                    <input nbInput fullWidth type="text" placeholder="Б">
+                </div>
+                <div class="flat-number">
+                    <label>Квартира</label>
+                    <input nbInput fullWidth type="text" placeholder="1">
+                </div>
+            </div>
             <div class="body__button">
                 <div class="login-link">
-                    <label>Уже есть аккаунт? <a>Войдите</a></label>
+                    <label>Уже есть аккаунт? <a [routerLink]="'/login'">Войдите</a></label>
                 </div>
-                <button nbButton fullWidth status="primary">Зарегистрироваться</button>
+                <button nbButton fullWidth status="primary">ЗАРЕГИСТРИРОВАТЬСЯ</button>
             </div>
         </nb-card-body>
     </nb-card>
