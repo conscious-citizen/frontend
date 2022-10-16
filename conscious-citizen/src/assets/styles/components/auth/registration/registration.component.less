@@ -15,59 +15,72 @@
             align-items: center;
             font-weight: 600;
             font-size: 40px;
+
             .header__text {
                 margin: 20px 0 20px 0;
             }
         }
 
         &__body {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            .body__input {
-                margin-top: 20px;
-                width: 80%;
-                &_address {
+            form {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                width: 100%;
+
+                .body__input {
+                    margin-top: 20px;
                     width: 80%;
-                    display: flex;
-                    flex-direction: row;
-                    align-items: start;
-                    flex-wrap: wrap;
-                    .city {
-                        margin-top: 10px;
-                        width: 47%;
-                        margin-right: 6%;
-                    }
-                    .street {
-                        margin-top: 10px;
-                        width: 47%;
-                    }
-                    .building {
-                        margin-top: 10px;
-                        width: 32%;
-                        margin-right: 1%;
-                    }
-                    .letter {
-                        margin-top: 10px;
-                        width: 32%;
-                        margin-right: 1%;
-                    }
-                    .flat-number {
-                        margin-top: 10px;
-                        width: 33%;
+
+                    &_address {
+                        width: 80%;
+                        display: flex;
+                        flex-direction: row;
+                        align-items: start;
+                        flex-wrap: wrap;
+
+                        .city {
+                            margin-top: 10px;
+                            width: 47%;
+                            margin-right: 6%;
+                        }
+
+                        .street {
+                            margin-top: 10px;
+                            width: 47%;
+                        }
+
+                        .building {
+                            margin-top: 10px;
+                            width: 32%;
+                            margin-right: 1%;
+                        }
+
+                        .letter {
+                            margin-top: 10px;
+                            width: 32%;
+                            margin-right: 1%;
+                        }
+
+                        .flat-number {
+                            margin-top: 10px;
+                            width: 33%;
+                        }
                     }
                 }
-            }
-            .body__button {
-                margin: 30px 0 30px 0;
-                width: 40%;
-                min-width: 300px;
-                height: 75px;
-                .login-link {
-                    margin-bottom: 10px;
-                    display: flex;
-                    align-items: center;
-                    flex-direction: column;
+
+                .body__button {
+                    margin: 30px 0 30px 0;
+                    width: 40%;
+                    min-width: 300px;
+                    height: 75px;
+
+                    .login-link {
+                        margin-bottom: 10px;
+                        display: flex;
+                        align-items: center;
+                        flex-direction: column;
+                    }
                 }
             }
         }
