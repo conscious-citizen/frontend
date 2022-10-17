@@ -11,11 +11,13 @@ import {
     NbInputModule,
     NbLayoutModule,
     NbStatusService,
-    NbThemeModule
+    NbThemeModule, NbTooltipModule
 } from "@nebular/theme";
 import {NbEvaIconsModule} from "@nebular/eva-icons";
 import {LoginComponent} from "./components/auth/login/login.component";
 import { PageNotFoundComponent } from './shared-components/page-not-found/page-not-found.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
@@ -35,6 +37,9 @@ import { PageNotFoundComponent } from './shared-components/page-not-found/page-n
         NbIconModule,
         NbButtonModule,
         NbEvaIconsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        NbTooltipModule
     ],
     providers: [NbStatusService],
     bootstrap: [AppComponent]

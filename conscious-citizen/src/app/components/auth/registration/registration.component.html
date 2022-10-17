@@ -6,81 +6,161 @@
             </div>
         </nb-card-header>
         <nb-card-body class="registration-form__body">
-            <div class="body__input">
-                <label>Логин</label>
-                <input nbInput fullWidth type="text" placeholder="Ваш логин">
-            </div>
-            <div class="body__input">
-                <label>Почта</label>
-                <nb-form-field>
-                    <nb-icon nbPrefix icon="at-outline" pack="eva"></nb-icon>
-                    <input nbInput fullWidth type="text" placeholder="Ваша Почта@mailbox.com">
-                </nb-form-field>
-            </div>
-            <div class="body__input">
-                <label>Пароль</label>
-                <nb-form-field>
-                    <input nbInput fullWidth [type]="getInputType(passwordInputType.PASSWORD)" placeholder="Ваш пароль">
-                    <button nbSuffix nbButton ghost (click)="toggleShowPassword(passwordInputType.PASSWORD)">
-                        <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
-                                 pack="eva"
-                                 [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
-                        </nb-icon>
-                    </button>
-                </nb-form-field>
-            </div>
-            <div class="body__input">
-                <label>Повторите пароль</label>
-                <nb-form-field>
-                    <input nbInput fullWidth [type]="getInputType(passwordInputType.REPEAT_PASSWORD)"
-                           placeholder="Повторите ваш пароль">
-                    <button nbSuffix nbButton ghost (click)="toggleShowPassword(passwordInputType.REPEAT_PASSWORD)">
-                        <nb-icon [icon]="showRepeatPassword ? 'eye-outline' : 'eye-off-2-outline'"
-                                 pack="eva"
-                                 [attr.aria-label]="showRepeatPassword ? 'hide password' : 'show password'">
-                        </nb-icon>
-                    </button>
-                </nb-form-field>
-            </div>
-            <div class="body__input">
-                <label>Телефон</label>
-                <nb-form-field>
-                    <nb-icon nbPrefix icon="phone-outline" pack="eva"></nb-icon>
-                    <input nbInput fullWidth type="text" placeholder="+79990001122">
-                </nb-form-field>
-            </div>
-            <div class="body__input">
-                <label>ФИО</label>
-                <input nbInput fullWidth type="text" placeholder="Имя Фамилия Отчество">
-            </div>
-            <div class="body__input_address">
-                <div class="city">
-                    <label>Город</label>
-                    <input nbInput fullWidth type="text" placeholder="Самара">
+            <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                <div class="body__input">
+                    <label>Логин</label>
+                    <input nbInput
+                           fullWidth
+                           type="text"
+                           placeholder="Ваш логин"
+                           [formControlName]="'login'"
+                           [nbTooltip]="this.tooltips['login'].tooltipText"
+                           [nbTooltipDisabled]="!this.tooltips['login'].isShow"
+                           nbTooltipStatus="danger"
+                           [status]="changeInputStatus(registrationForm.controls['login'].invalid)">
                 </div>
-                <div class="street">
-                    <label>Улица</label>
-                    <input nbInput fullWidth type="text" placeholder="Московское шоссе">
+                <div class="body__input">
+                    <label>Почта</label>
+                    <input nbInput
+                           fullWidth
+                           type="text"
+                           placeholder="Ваша Почта@mailbox.com"
+                           [formControlName]="'email'"
+                           [nbTooltip]="this.tooltips['email'].tooltipText"
+                           [nbTooltipDisabled]="!this.tooltips['email'].isShow"
+                           nbTooltipStatus="danger"
+                           [status]="changeInputStatus(registrationForm.controls['email'].invalid)">
                 </div>
-                <div class="building">
-                    <label>Дом</label>
-                    <input nbInput fullWidth type="text" placeholder="1">
+                <div class="body__input">
+                    <label>Пароль</label>
+                    <nb-form-field>
+                        <input nbInput
+                               fullWidth
+                               [type]="getPasswordInputType(inputTypes.PASSWORD)"
+                               placeholder="Ваш пароль"
+                               [nbTooltip]="this.tooltips['password'].tooltipText"
+                               [nbTooltipDisabled]="!this.tooltips['password'].isShow"
+                               nbTooltipStatus="danger"
+                               [status]="changeInputStatus(registrationForm.controls['password'].invalid)"
+                               [formControlName]="'password'">
+                        <button nbSuffix nbButton ghost (click)="toggleShowPassword(inputTypes.PASSWORD)">
+                            <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
+                                     pack="eva"
+                                     [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
+                            </nb-icon>
+                        </button>
+                    </nb-form-field>
                 </div>
-                <div class="letter">
-                    <label>Литер</label>
-                    <input nbInput fullWidth type="text" placeholder="Б">
+                <div class="body__input">
+                    <label>Повторите пароль</label>
+                    <nb-form-field>
+                        <input nbInput
+                               fullWidth
+                               [type]="getPasswordInputType(inputTypes.REPEAT_PASSWORD)"
+                               placeholder="Повторите ваш пароль"
+                               [nbTooltip]="this.tooltips['repeatPassword'].tooltipText"
+                               [nbTooltipDisabled]="!this.tooltips['repeatPassword'].isShow || this.isRepeatPasswordValid"
+                               nbTooltipStatus="danger"
+                               [formControlName]="'repeatPassword'"
+                               [status]="changeInputStatusForRepeatPassword(registrationForm.controls['repeatPassword'].invalid)"
+                               (change)="repeatPasswordValidate($event)"
+                        >
+                        <button nbSuffix nbButton ghost (click)="toggleShowPassword(inputTypes.REPEAT_PASSWORD)">
+                            <nb-icon [icon]="showRepeatPassword ? 'eye-outline' : 'eye-off-2-outline'"
+                                     pack="eva"
+                                     [attr.aria-label]="showRepeatPassword ? 'hide password' : 'show password'">
+                            </nb-icon>
+                        </button>
+                    </nb-form-field>
                 </div>
-                <div class="flat-number">
-                    <label>Квартира</label>
-                    <input nbInput fullWidth type="text" placeholder="1">
+                <div class="body__input">
+                    <label>Телефон</label>
+                    <input nbInput
+                           fullWidth
+                           type="text"
+                           placeholder="+79990001122"
+                           [formControlName]="'phoneNumber'"
+                           [nbTooltip]="this.tooltips['phoneNumber'].tooltipText"
+                           [nbTooltipDisabled]="!this.tooltips['phoneNumber'].isShow"
+                           nbTooltipStatus="danger"
+                           [status]="changeInputStatus(registrationForm.controls['phoneNumber'].invalid)">
                 </div>
-            </div>
-            <div class="body__button">
-                <div class="login-link">
-                    <label>Уже есть аккаунт? <a [routerLink]="'/login'">Войдите</a></label>
+                <div class="body__input">
+                    <label>ФИО</label>
+                    <input
+                        nbInput
+                        fullWidth
+                        type="text"
+                        placeholder="Имя Фамилия Отчество"
+                        [nbTooltip]="this.tooltips['fullName'].tooltipText"
+                        [nbTooltipDisabled]="!this.tooltips['fullName'].isShow"
+                        nbTooltipStatus="danger"
+                        [status]="changeInputStatus(registrationForm.controls['fullName'].invalid)"
+                        [formControlName]="'fullName'">
                 </div>
-                <button nbButton fullWidth status="primary">ЗАРЕГИСТРИРОВАТЬСЯ</button>
-            </div>
+                <div class="body__input_address">
+                    <div class="city">
+                        <label>Город</label>
+                        <input
+                            nbInput
+                            fullWidth
+                            type="text"
+                            placeholder="Самара"
+                            [nbTooltip]="this.tooltips['city'].tooltipText"
+                            [nbTooltipDisabled]="!this.tooltips['city'].isShow"
+                            nbTooltipStatus="danger"
+                            [status]="changeInputStatus(registrationForm.controls['city'].invalid)"
+                            [formControlName]="'city'">
+                    </div>
+                    <div class="street">
+                        <label>Улица</label>
+                        <input
+                            nbInput
+                            fullWidth
+                            type="text"
+                            placeholder="Московское шоссе"
+                            [nbTooltip]="this.tooltips['street'].tooltipText"
+                            [nbTooltipDisabled]="!this.tooltips['street'].isShow"
+                            nbTooltipStatus="danger"
+                            [status]="changeInputStatus(registrationForm.controls['street'].invalid)"
+                            [formControlName]="'street'">
+                    </div>
+                    <div class="building">
+                        <label>Дом</label>
+                        <input nbInput
+                               fullWidth
+                               type="text"
+                               placeholder="1"
+                               [nbTooltip]="this.tooltips['building'].tooltipText"
+                               [nbTooltipDisabled]="!this.tooltips['building'].isShow"
+                               nbTooltipStatus="danger"
+                               [status]="changeInputStatus(registrationForm.controls['building'].invalid)"
+                               [formControlName]="'building'">
+                    </div>
+                    <div class="letter">
+                        <label>Литер</label>
+                        <input nbInput
+                               fullWidth
+                               type="text"
+                               placeholder="Б"
+                               [formControlName]="'letter'">
+                    </div>
+                    <div class="flat-number">
+                        <label>Квартира</label>
+                        <input nbInput
+                               fullWidth
+                               type="text"
+                               placeholder="1"
+                               [formControlName]="'flatNumber'">
+                    </div>
+                </div>
+                <div class="body__button">
+                    <div class="login-link">
+                        <label>Уже есть аккаунт? <a [routerLink]="'/login'">Войдите</a></label>
+                    </div>
+                    <button nbButton fullWidth status="primary" type="submit">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+                </div>
+            </form>
         </nb-card-body>
     </nb-card>
 </div>
