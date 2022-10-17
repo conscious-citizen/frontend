@@ -8,12 +8,12 @@
         <nb-card-body class="login-form__body">
             <div class="body__input">
                 <label>Логин</label>
-                <input nbInput fullWidth type="text" placeholder="Ваш логин">
+                <input nbInput fullWidth type="text" placeholder="Ваш логин" >
             </div>
             <div class="body__input">
                 <label>Пароль</label>
                 <nb-form-field>
-                    <input nbInput fullWidth [type]="getInputType()" placeholder="Ваш пароль">
+                    <input nbInput fullWidth [type]="getInputType()" placeholder="Ваш пароль" >
                     <button nbSuffix nbButton ghost (click)="toggleShowPassword()">
                         <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
                                  pack="eva"
@@ -29,7 +29,7 @@
                 <div class="login-link">
                     <label>Ещё нет аккаунта? <a [routerLink]="'/registration'">Зарегистрируйтесь</a></label>
                 </div>
-                <button nbButton fullWidth status="primary">ВОЙТИ</button>
+                <button nbButton fullWidth status="primary" (click)="onSubmit()" >ВОЙТИ</button>
             </div>
         </nb-card-body>
     </nb-card>

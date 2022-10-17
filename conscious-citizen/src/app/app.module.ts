@@ -18,6 +18,7 @@ import {LoginComponent} from "./components/auth/login/login.component";
 import { PageNotFoundComponent } from './shared-components/page-not-found/page-not-found.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         NbEvaIconsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
-        NbTooltipModule
+        NbTooltipModule,
+        HttpClientModule
     ],
     providers: [NbStatusService],
     bootstrap: [AppComponent]

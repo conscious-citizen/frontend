@@ -29,3 +29,5 @@ export const INPUT_TOOLTIP_ERROR_MESSAGES = {
     email: 'Введите корректный email в формате: example@mailbox.com',
     password: 'Значение пароля и его повтора не совпадает'
 }
+
+
