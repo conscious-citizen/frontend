@@ -21,26 +21,33 @@
         }
 
         &__body {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            .body__input {
-                margin-top: 20px;
-                width: 80%;
-            }
-            .body__button {
-                margin-top: 50px;
-                width: 40%;
-                min-width: 300px;
-                height: 75px;
-                .login-link {
-                    .margin {
-                        margin-right: 10px;
+            form {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                width: 100%;
+
+                .body__input {
+                    margin-top: 20px;
+                    width: 80%;
+                }
+
+                .body__button {
+                    margin-top: 50px;
+                    width: 40%;
+                    min-width: 300px;
+                    height: 75px;
+
+                    .login-link {
+                        .margin {
+                            margin-right: 10px;
+                        }
+
+                        margin-bottom: 10px;
+                        display: flex;
+                        align-items: center;
+                        flex-direction: column;
                     }
-                    margin-bottom: 10px;
-                    display: flex;
-                    align-items: center;
-                    flex-direction: column;
                 }
             }
         }

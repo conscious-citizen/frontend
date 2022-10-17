@@ -25,7 +25,7 @@ export const INPUT_TOOLTIP_ERROR_MESSAGES = {
     required: 'Поле обязательно для заполнения! ',
     maxLength: 'Поле превышает допустимую длину: {value}! ',
     minLength: 'Поле меньше минимальной длины: {value}! ',
-    pattern: 'Поле должно иметь формат: {value}! ',
+    pattern: 'Поле должно иметь формат: {value} ! ',
     email: 'Введите корректный email в формате: example@mailbox.com',
     password: 'Значение пароля и его повтора не совпадает'
 }
