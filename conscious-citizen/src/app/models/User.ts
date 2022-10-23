@@ -17,6 +17,15 @@ export class User {
                 login: string,
                 password: string
     ) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.patronymic = patronymic;
+        this.phoneNumber = phoneNumber;
+        this.eMail = eMail;
+        this.city = city;
+        this.street = street;
+        this.login = login;
+        this.password = password;
     }
 
 }
