@@ -2,6 +2,9 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {INPUT_TOOLTIP_ERROR_MESSAGES, INPUT_TYPES, Tooltip, Tooltips} from "../../../models/constants";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UtilsService} from "../../../services/utils.service";
+import {RegistrationService} from "../../../services/registration.service";
+import {Router} from "@angular/router";
+import {User} from "../../../models/User";
 
 @Component({
     selector: 'app-registration',
@@ -27,9 +30,9 @@ export class RegistrationComponent implements OnInit {
         repeatPassword: new FormControl('', [Validators.required]),
         phoneNumber: new FormControl('', [Validators.required, Validators.pattern('[\+]?[0-9]{3}?[0-9]{8}')]),
         fullName: new FormControl('', [Validators.required]),
-        city: new FormControl('', [Validators.required]),
-        street: new FormControl('', [Validators.required]),
-        building: new FormControl('', [Validators.required]),
+        city: new FormControl('', [Validators.required, Validators.pattern('[а-яА-ЯёЁ0-9\s]+')]),
+        street: new FormControl('', [Validators.required, Validators.pattern('[а-яА-ЯёЁ0-9\s]+')]),
+        building: new FormControl('', [Validators.required, Validators.pattern('([0-9]+)?[\\/]?[0-9]+')]),
         letter: new FormControl(''),
         flatNumber: new FormControl('')
     });
@@ -46,7 +49,10 @@ export class RegistrationComponent implements OnInit {
         building: {isShow: false, tooltipText: ''},
     }
 
-    constructor(private utils: UtilsService, private cdr: ChangeDetectorRef) {
+    constructor(private utils: UtilsService,
+                private cdr: ChangeDetectorRef,
+                private registrationService: RegistrationService,
+                private router: Router) {
     }
 
     ngOnInit(): void {
@@ -56,7 +62,33 @@ export class RegistrationComponent implements OnInit {
         this.isSubmitClicked = true;
         this.resetTooltipMessages();
         this.setTooltipTextForInputs();
-        this.cdr.detectChanges();
+        if (!this.registrationForm.invalid) {
+            let splitFullName = this.splitFullName();
+            this.registrationService.registration(new User(
+                splitFullName[0],
+                splitFullName[1],
+                splitFullName[2],
+                this.registrationForm.controls['phoneNumber'].value,
+                this.registrationForm.controls['email'].value,
+                this.registrationForm.controls['city'].value,
+                this.buildAddress(),
+                this.registrationForm.controls['login'].value,
+                this.registrationForm.controls['password'].value
+        )).subscribe((res) => {
+                this.router.navigate(['/login']);
+            });
+        }
+    }
+
+    splitFullName(): any {
+        return this.registrationForm.controls['fullName'].value.split(' ');
+    }
+
+    buildAddress(): string {
+        return this.registrationForm.controls['street'].value + '|' +
+            this.registrationForm.controls['building'].value + '|' +
+            this.registrationForm.controls['letter'].value + '|' +
+            this.registrationForm.controls['flatNumber'].value;
     }
 
     getPasswordInputType(inputType: INPUT_TYPES.PASSWORD | INPUT_TYPES.REPEAT_PASSWORD) {
