@@ -15,17 +15,20 @@ import {
 } from "@nebular/theme";
 import {NbEvaIconsModule} from "@nebular/eva-icons";
 import {LoginComponent} from "./components/auth/login/login.component";
-import { PageNotFoundComponent } from './shared-components/page-not-found/page-not-found.component';
+import {PageNotFoundComponent} from './shared-components/page-not-found/page-not-found.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
+import {ResetPasswordComponent} from './components/auth/reset-password/reset-password.component';
+import {TextMaskModule} from 'angular2-text-mask';
 
 @NgModule({
     declarations: [
         AppComponent,
         RegistrationComponent,
         LoginComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        ResetPasswordComponent
     ],
     imports: [
         BrowserModule,
@@ -41,7 +44,8 @@ import {HttpClientModule} from "@angular/common/http";
         ReactiveFormsModule,
         BrowserAnimationsModule,
         NbTooltipModule,
-        HttpClientModule
+        HttpClientModule,
+        TextMaskModule
     ],
     providers: [NbStatusService],
     bootstrap: [AppComponent]
