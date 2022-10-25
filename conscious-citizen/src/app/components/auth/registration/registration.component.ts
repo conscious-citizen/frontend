@@ -5,13 +5,14 @@ import {UtilsService} from "../../../services/utils.service";
 import {RegistrationService} from "../../../services/registration.service";
 import {Router} from "@angular/router";
 import {User} from "../../../models/User";
+import emailMask from 'text-mask-addons/dist/emailMask';
 
 @Component({
     selector: 'app-registration',
     templateUrl: './registration.component.html',
 })
 export class RegistrationComponent implements OnInit {
-
+    emailMask = emailMask;
     showPassword = false;
     showRepeatPassword = false;
     inputTypes = INPUT_TYPES;
@@ -74,7 +75,7 @@ export class RegistrationComponent implements OnInit {
                 this.buildAddress(),
                 this.registrationForm.controls['login'].value,
                 this.registrationForm.controls['password'].value
-        )).subscribe((res) => {
+            )).subscribe((res) => {
                 this.router.navigate(['/login']);
             });
         }

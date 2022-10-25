@@ -29,6 +29,7 @@
                            [nbTooltip]="this.tooltips['email'].tooltipText"
                            [nbTooltipDisabled]="!this.tooltips['email'].isShow"
                            nbTooltipStatus="danger"
+                           [textMask]="{mask: emailMask}"
                            [status]="changeInputStatus(registrationForm.controls['email'].invalid)">
                 </div>
                 <div class="body__input">
