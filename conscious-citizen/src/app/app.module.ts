@@ -21,6 +21,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {ResetPasswordComponent} from './components/auth/reset-password/reset-password.component';
 import {TextMaskModule} from 'angular2-text-mask';
+import {ChangePasswordComponent} from './components/auth/change-password/change-password.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import {TextMaskModule} from 'angular2-text-mask';
         RegistrationComponent,
         LoginComponent,
         PageNotFoundComponent,
-        ResetPasswordComponent
+        ResetPasswordComponent,
+        ChangePasswordComponent
     ],
     imports: [
         BrowserModule,
