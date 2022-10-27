@@ -19,9 +19,9 @@ import {PageNotFoundComponent} from './shared-components/page-not-found/page-not
 import {ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
-import {ResetPasswordComponent} from './components/auth/reset-password/reset-password.component';
+import {ForgotPasswordComponent} from './components/auth/forgot-password/forgot-password.component';
 import {TextMaskModule} from 'angular2-text-mask';
-import {ChangePasswordComponent} from './components/auth/change-password/change-password.component';
+import {ResetPasswordComponent} from './components/auth/reset-password/reset-password.component';
 
 @NgModule({
     declarations: [
@@ -29,8 +29,8 @@ import {ChangePasswordComponent} from './components/auth/change-password/change-
         RegistrationComponent,
         LoginComponent,
         PageNotFoundComponent,
-        ResetPasswordComponent,
-        ChangePasswordComponent
+        ForgotPasswordComponent,
+        ResetPasswordComponent
     ],
     imports: [
         BrowserModule,

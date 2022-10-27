@@ -1,33 +1,88 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import emailMask from 'text-mask-addons/dist/emailMask';
-import {INPUT_TOOLTIP_ERROR_MESSAGES, Tooltips} from "../../../models/constants";
+import {INPUT_TOOLTIP_ERROR_MESSAGES, INPUT_TYPES, Tooltips} from "../../../models/constants";
+import {UtilsService} from "../../../services/utils.service";
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from "rxjs";
+import {ResetPasswordService} from "../../../services/reset-password.service";
 
 @Component({
-    selector: 'app-reset-password',
+    selector: 'app-change-password',
     templateUrl: './reset-password.component.html'
 })
 export class ResetPasswordComponent implements OnInit {
-
-    emailMask = emailMask;
+    showPassword = false;
+    showRepeatPassword = false;
+    inputTypes = INPUT_TYPES;
     isSubmitClicked = false;
+    isRepeatPasswordValid = true;
+
+    token = '';
+    private querySubscription: Subscription;
 
     resetPasswordForm = new FormGroup({
-        email: new FormControl('', [Validators.required,
-            Validators.minLength(5),
-            Validators.maxLength(100),
-            Validators.email]),
+        password: new FormControl('', [Validators.required,
+            Validators.pattern('(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}'),
+        ]),
+        repeatPassword: new FormControl('', [Validators.required])
     });
+
     tooltips: Tooltips = {
-       email: {isShow: false, tooltipText: ''}
+        password: {isShow: false, tooltipText: ''},
+        repeatPassword: {isShow: false, tooltipText: ''},
     }
 
-    constructor() {
+    constructor(private utils: UtilsService, private route: ActivatedRoute, private resetPassword: ResetPasswordService, private router: Router) {
+        this.querySubscription = route.queryParams.subscribe(
+            (queryParam: any) => {
+                this.token = queryParam['token'];
+            })
+
     }
 
     ngOnInit(): void {
     }
-    changeInputStatus(validatorStateInvalid: boolean): string {
+
+    onSubmit(): void {
+        this.isSubmitClicked = true;
+        this.resetTooltipMessages();
+        this.setTooltipTextForInputs();
+        if (!this.resetPasswordForm.invalid) {
+            this.resetPassword.resetPassword(
+                    this.token,
+                    this.resetPasswordForm.controls['password'].value
+
+            ).subscribe((res) => {
+                this.router.navigate(['/login']);
+            });
+        }
+
+    }
+
+
+    getPasswordInputType(inputType
+                             :
+                             INPUT_TYPES.PASSWORD | INPUT_TYPES.REPEAT_PASSWORD
+    ) {
+        switch (inputType) {
+            case INPUT_TYPES.PASSWORD:
+                if (this.showPassword) {
+                    return 'text';
+                }
+                return 'password';
+            case INPUT_TYPES.REPEAT_PASSWORD:
+                if (this.showRepeatPassword) {
+                    return 'text';
+                }
+                return 'password';
+        }
+    }
+
+    changeInputStatus(validatorStateInvalid
+                          :
+                          boolean
+    ):
+        string {
         if (validatorStateInvalid && this.isSubmitClicked) {
             return 'danger';
         } else {
@@ -35,38 +90,78 @@ export class ResetPasswordComponent implements OnInit {
         }
     }
 
+    changeInputStatusForRepeatPassword(validatorStateInvalid ?: boolean)
+        :
+        string {
+        if (!this.isRepeatPasswordValid || (validatorStateInvalid && this.isSubmitClicked)) {
+            return 'danger';
+        } else {
+            return 'basic';
+        }
+    }
+
+    toggleShowPassword(inputType
+                           :
+                           INPUT_TYPES
+    ) {
+        switch (inputType) {
+            case INPUT_TYPES.PASSWORD:
+                this.showPassword = !this.showPassword;
+                break;
+            case INPUT_TYPES.REPEAT_PASSWORD:
+                this.showRepeatPassword = !this.showRepeatPassword;
+                break;
+        }
+    }
+
+    repeatPasswordValidate(event
+                               :
+                               any
+    ):
+        void {
+        this.tooltips['repeatPassword'].tooltipText = '';
+        this.tooltips['repeatPassword'].isShow = false;
+        this.isRepeatPasswordValid = true;
+        if (this.resetPasswordForm.controls['password'].value !== event.target.value
+        ) {
+            this.tooltips['repeatPassword'].tooltipText =
+                this.tooltips['repeatPassword'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.password);
+            this.tooltips['repeatPassword'].isShow = true;
+            this.isRepeatPasswordValid = false;
+        }
+    }
+
     setTooltipTextForInputs() {
-       this.setTooltipMessagesForEmail()
+        this.setTooltipMessagesForPassword();
+        this.setTooltipMessagesForRepeatPassword();
     }
-    setTooltipMessagesForEmail() {
-        if (this.resetPasswordForm.getError('required', ['email'])) {
-            this.tooltips['email'].tooltipText =
-                this.tooltips['email'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['email'].isShow = true;
+
+    setTooltipMessagesForPassword() {
+        if (this.resetPasswordForm.getError('required', ['password'])) {
+            this.tooltips['password'].tooltipText =
+                this.tooltips['password'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+            this.tooltips['password'].isShow = true;
         }
-        if (this.resetPasswordForm.getError('email', ['email'])) {
-            this.tooltips['email'].tooltipText =
-                this.tooltips['email'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.email);
-            this.tooltips['email'].isShow = true;
+        if (this.resetPasswordForm.getError('pattern', ['password'])) {
+            this.tooltips['password'].tooltipText = this.tooltips['password'].tooltipText +
+                this.utils.insertValueInTooltipMessage(
+                    INPUT_TOOLTIP_ERROR_MESSAGES.pattern, 'минимум 8 символов, минимум 1 заглавная буква, минимум 1 число минимум 1 из символов #?!@$ %^&*-');
+            this.tooltips['password'].isShow = true;
         }
     }
+
+    setTooltipMessagesForRepeatPassword() {
+        if (this.resetPasswordForm.getError('required', ['repeatPassword'])) {
+            this.tooltips['repeatPassword'].tooltipText =
+                this.tooltips['repeatPassword'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+            this.tooltips['repeatPassword'].isShow = true;
+        }
+    }
+
     resetTooltipMessages() {
         Object.entries(this.tooltips).forEach(([key, value]) => {
             this.tooltips[key].tooltipText = '';
             this.tooltips[key].isShow = false;
         });
-    }
-    onSubmit() {
-        this.isSubmitClicked = true;
-        this.resetTooltipMessages();
-        this.setTooltipTextForInputs();
-    /*    if (!this.resetPasswordForm.invalid) {
-            this.loginService.login({
-                user_name: this.loginForm.controls['login'].value,
-                password: this.loginForm.controls['password'].value
-            }).subscribe((res) => {
-                this.loggedUser = res;
-            });
-        }*/
     }
 }
