@@ -31,8 +31,8 @@ export class RegistrationComponent implements OnInit {
         repeatPassword: new FormControl('', [Validators.required]),
         phoneNumber: new FormControl('', [Validators.required, Validators.pattern('[\+]?[0-9]{3}?[0-9]{8}')]),
         fullName: new FormControl('', [Validators.required]),
-        city: new FormControl('', [Validators.required, Validators.pattern('[а-яА-ЯёЁ0-9\s]+')]),
-        street: new FormControl('', [Validators.required, Validators.pattern('[а-яА-ЯёЁ0-9\s]+')]),
+        city: new FormControl('', [Validators.required, Validators.pattern('[а-яА-ЯёЁ0-9 -]+')]),
+        street: new FormControl('', [Validators.required, Validators.pattern('[а-яА-ЯёЁ0-9 -]+')]),
         building: new FormControl('', [Validators.required, Validators.pattern('([0-9]+)?[\\/]?[0-9]+')]),
         letter: new FormControl(''),
         flatNumber: new FormControl('')

@@ -6,7 +6,7 @@
             </div>
         </nb-card-header>
         <nb-card-body class="registration-form__body">
-            <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <form autocomplete="on" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
                 <div class="body__input">
                     <label>Логин</label>
                     <input nbInput
@@ -92,7 +92,7 @@
                         nbInput
                         fullWidth
                         type="text"
-                        placeholder="Имя Фамилия Отчество"
+                        placeholder="Фамилия Имя Отчество"
                         [nbTooltip]="this.tooltips['fullName'].tooltipText"
                         [nbTooltipDisabled]="!this.tooltips['fullName'].isShow"
                         nbTooltipStatus="danger"

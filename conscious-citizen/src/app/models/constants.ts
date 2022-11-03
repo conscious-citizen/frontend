@@ -30,4 +30,15 @@ export const INPUT_TOOLTIP_ERROR_MESSAGES = {
     password: 'Значение пароля и его повтора не совпадает'
 }
 
+export enum ROLES {
+    'USER',
+    'ADMIN',
+}
+export const KEYS = {
+    TOKEN: 'AuthToken',
+    USERNAME: 'AuthUsername',
+    AUTHORITIES: 'AuthAuthorities',
+    TOKEN_HEADER: 'Authorization',
+    TOKEN_TYPE: 'AuthTokenType',
+}
 
