@@ -8,9 +8,9 @@ import {ResetPasswordService} from "../../../services/reset-password.service";
 
 @Component({
     selector: 'app-change-password',
-    templateUrl: './reset-password.component.html'
+    templateUrl: './change-password.component.html'
 })
-export class ResetPasswordComponent implements OnInit {
+export class ChangePasswordComponent implements OnInit {
     showPassword = false;
     showRepeatPassword = false;
     inputTypes = INPUT_TYPES;

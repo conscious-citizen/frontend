@@ -21,7 +21,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {ForgotPasswordComponent} from './components/auth/forgot-password/forgot-password.component';
 import {TextMaskModule} from 'angular2-text-mask';
-import {ResetPasswordComponent} from './components/auth/reset-password/reset-password.component';
+import {ChangePasswordComponent} from './components/auth/change-password/change-password.component';
+import { MainPageComponent } from './components/main/main-page/main-page.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import {ResetPasswordComponent} from './components/auth/reset-password/reset-pas
         LoginComponent,
         PageNotFoundComponent,
         ForgotPasswordComponent,
-        ResetPasswordComponent
+        ChangePasswordComponent,
+        MainPageComponent
     ],
     imports: [
         BrowserModule,
