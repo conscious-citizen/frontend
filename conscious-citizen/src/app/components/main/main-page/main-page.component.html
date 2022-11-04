@@ -1,0 +1,24 @@
+<div class="main-page-wrapper">
+    <div class="main-page__body">
+        <div class="body__img">
+            <img src="/assets/img/main-page.png" alt="Сознательный гражданин">
+        </div>
+        <div class="body__text">
+            <p>
+                Проект "Сознательный гражданин" позволит вам добавлять на карту метки с 
+                прикрепленными фотографиями инцидентов (нарушение правил парковки,
+                продажа в магазинах просроченных товаров), а также просматривать уже созданные 
+                бдительными гражданами инциденты на карте
+            </p>
+            <p>
+                Цель проекта "Сознательный гражданин" – повышение гражданской сознательности населения
+            </p>
+            <div class="text__button" [routerLink]="'/login'">
+                <button nbButton fullWidth status="primary">ВОЙТИ</button>
+            </div>
+            <div class="text__link">
+                <label>Ещё нет аккаунта? <a [routerLink]="'/registration'">Зарегистрируйтесь</a></label>
+            </div>
+        </div>
+    </div>
+</div>

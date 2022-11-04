@@ -4,13 +4,15 @@ import {RegistrationComponent} from "./components/auth/registration/registration
 import {LoginComponent} from "./components/auth/login/login.component";
 import {PageNotFoundComponent} from "./shared-components/page-not-found/page-not-found.component";
 import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
+import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
+import { MainPageComponent } from './components/main/main-page/main-page.component';
 
 const routes: Routes = [
+    { path: '', component: MainPageComponent},
     { path: 'registration', component: RegistrationComponent },
     { path: 'login', component: LoginComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },
-    { path: 'reset_password', component: ResetPasswordComponent, data :{ token:''} },
+    { path: 'change-password', component: ChangePasswordComponent },
     { path: '**', component: PageNotFoundComponent }
 ];
 
