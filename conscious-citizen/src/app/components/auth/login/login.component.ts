@@ -1,9 +1,10 @@
 import {Component, OnInit} from "@angular/core";
-import {User} from "../../../models/User";
+import {LoggedUser, User} from "../../../models/User";
 import {LoginService} from "../../../services/login.service";
 import {INPUT_TOOLTIP_ERROR_MESSAGES, INPUT_TYPES, Tooltips} from "../../../models/constants";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UtilsService} from "../../../services/utils.service";
+import {TokenService} from "../../../services/token.service";
 
 @Component({
     selector: 'app-login',
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
     user: any;
     loggedUser: any;
 
-    constructor(private loginService: LoginService, private utils: UtilsService) {
+    constructor(private loginService: LoginService, private utils: UtilsService, private tokenService: TokenService) {
     }
 
     ngOnInit(): void {
@@ -46,6 +47,8 @@ export class LoginComponent implements OnInit {
                 user_name: this.loginForm.controls['login'].value,
                 password: this.loginForm.controls['password'].value
             }).subscribe((res) => {
+                console.log(res)
+                this.tokenService.readLoginResponse(res as LoggedUser);
                 this.loggedUser = res;
             });
         }

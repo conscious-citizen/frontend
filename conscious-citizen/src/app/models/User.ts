@@ -29,3 +29,11 @@ export class User {
     }
 
 }
+
+export type LoggedUser = {
+    id: string,
+    role: [],
+    token: string,
+    type: string,
+    username: string
+}

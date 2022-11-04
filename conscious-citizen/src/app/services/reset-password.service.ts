@@ -14,13 +14,13 @@ export class ResetPasswordService {
     }
 
     forgotPassword(user: any) {
-        const body = {user_email: user.eMail};
-        return this.http.post(API_ROUTES.FORGOT_PASSWORD_URL, body)
+        const body = {"email": user.user_email, "url": API_ROUTES.LOCAL_URL};
+        return this.http.post(API_ROUTES.FORGOT_PASSWORD_URL, JSON.stringify(body))
     }
 
 
     resetPassword(token:any, newPassword:any) {
-        const body = { "token": token,"newPassword":newPassword,}
+        const body = { "token": token,"password":newPassword,}
         return this.http.post(API_ROUTES.RESET_PASSWORD_URL, body)
     }
 }

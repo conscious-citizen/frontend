@@ -1,6 +1,7 @@
 export const API_ROUTES = {
-    LOGIN_URL: 'http://localhost:8086/api/login',
-    REGISTRATION_URL: 'http://localhost:8086/api/registration',
-    FORGOT_PASSWORD_URL: 'http://localhost:8086/api//forgot_password',
-    RESET_PASSWORD_URL: 'http://localhost:8086/api//forgot_password/reset_password/'
+    LOCAL_URL:'http://localhost:4200',
+    LOGIN_URL: 'http://localhost:8080/auth/login',
+    REGISTRATION_URL: 'http://localhost:8080/auth/registration',
+    FORGOT_PASSWORD_URL: 'http://localhost:8080/forgot_password',
+    RESET_PASSWORD_URL: 'http://localhost:8080/forgot_password/reset_password/'
 }
