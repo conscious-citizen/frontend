@@ -23,6 +23,7 @@ import {ForgotPasswordComponent} from './components/auth/forgot-password/forgot-
 import {TextMaskModule} from 'angular2-text-mask';
 import {ChangePasswordComponent} from './components/auth/change-password/change-password.component';
 import { MainPageComponent } from './components/main/main-page/main-page.component';
+import { TopPanelComponent } from './components/main/top-panel/top-panel.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { MainPageComponent } from './components/main/main-page/main-page.compone
         PageNotFoundComponent,
         ForgotPasswordComponent,
         ChangePasswordComponent,
-        MainPageComponent
+        MainPageComponent,
+        TopPanelComponent
     ],
     imports: [
         BrowserModule,
