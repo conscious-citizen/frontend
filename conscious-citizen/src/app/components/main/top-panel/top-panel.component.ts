@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {TokenService} from "../../../services/token.service";
 
 @Component({
     selector: 'app-top-panel',
@@ -7,11 +8,10 @@ import {Router} from "@angular/router";
 })
 export class TopPanelComponent implements OnInit {
 
-    constructor(private router: Router) {
+    constructor(private router: Router, public tokenService: TokenService) {
     }
 
     ngOnInit(): void {
-
     }
 
     navigateToProfile() {
