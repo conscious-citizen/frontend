@@ -11,7 +11,7 @@ import {
     NbInputModule,
     NbLayoutModule,
     NbStatusService,
-    NbThemeModule, NbTooltipModule
+    NbThemeModule, NbTooltipModule, NbUserModule
 } from "@nebular/theme";
 import {NbEvaIconsModule} from "@nebular/eva-icons";
 import {LoginComponent} from "./components/auth/login/login.component";
@@ -24,6 +24,7 @@ import {TextMaskModule} from 'angular2-text-mask';
 import {ChangePasswordComponent} from './components/auth/change-password/change-password.component';
 import { MainPageComponent } from './components/main/main-page/main-page.component';
 import { TopPanelComponent } from './components/main/top-panel/top-panel.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { TopPanelComponent } from './components/main/top-panel/top-panel.compone
         ForgotPasswordComponent,
         ChangePasswordComponent,
         MainPageComponent,
-        TopPanelComponent
+        TopPanelComponent,
+        ProfileComponent
     ],
     imports: [
         BrowserModule,
@@ -51,7 +53,8 @@ import { TopPanelComponent } from './components/main/top-panel/top-panel.compone
         BrowserAnimationsModule,
         NbTooltipModule,
         HttpClientModule,
-        TextMaskModule
+        TextMaskModule,
+        NbUserModule
     ],
     providers: [NbStatusService],
     bootstrap: [AppComponent]

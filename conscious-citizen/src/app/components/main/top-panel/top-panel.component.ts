@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-top-panel',
-  templateUrl: './top-panel.component.html',
-  styleUrls: ['./top-panel.component.less']
+    selector: 'app-top-panel',
+    templateUrl: './top-panel.component.html',
 })
 export class TopPanelComponent implements OnInit {
 
-  constructor() { }
+    constructor(private router: Router) {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
 
+    }
+
+    navigateToProfile() {
+        this.router.navigate(['/profile']);
+    }
 }

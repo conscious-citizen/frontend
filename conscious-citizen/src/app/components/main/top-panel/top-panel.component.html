@@ -1,11 +1,17 @@
 <div class="top-panel-wrapper">
     <div class="top-panel__body">
         <div class="body__logo">
-            <img src="/assets/img/logo.png" alt="Логотип проекта" [routerLink]="'/'">
+            <img src="/assets/img/logo-1.png" alt="Логотип проекта" [routerLink]="'/'">
         </div>
-        <div></div>
+        <div>
+        </div>
         <div class="body__icon">
-            <img src="/assets/img/login-icon.png" alt="Личный кабинет">
+            <nb-user
+                name="Иван Иванов"
+                size="medium"
+                (click)="navigateToProfile()"
+            >
+            </nb-user>
         </div>
     </div>
 </div>
