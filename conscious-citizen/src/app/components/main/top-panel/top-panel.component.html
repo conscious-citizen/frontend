@@ -3,10 +3,9 @@
         <div class="body__logo">
             <img src="/assets/img/logo.png" alt="Логотип проекта" [routerLink]="'/'">
         </div>
-        <div>
-        </div>
+        <div></div>
         <div class="body__icon">
-            <p *ngIf="this.tokenService.getToken() === null">Войти</p>
+            <p *ngIf="this.tokenService.getToken() === null" [routerLink]="'/login'">Войти</p>
             <nb-user *ngIf="this.tokenService.getToken() != null"
                 name="Иван Иванов"
                 size="medium"

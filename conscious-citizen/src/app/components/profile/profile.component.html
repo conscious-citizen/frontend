@@ -1,1 +1,104 @@
-<p>profile works!</p>
+<div class="profile-wrapper">
+    <nb-card size="large" class="profile-form">
+        <nb-card-header class="profile-form__header">
+            <img src="../../../assets/img/login-icon.png" alt="Иконка личного кабинета">
+            <div class="header__text">
+                Личный кабинет
+            </div>
+        </nb-card-header>
+        <nb-card-body class="profile-form__body">
+            <div class="body__edit">
+                <div class="edit__text">
+                    Режим редактирования
+                </div>
+                <div class="edit__img">
+                    <img src="../../../assets/img/edit_icon.png" alt="Иконка редактирования">
+                </div>
+            </div>
+            <form [formGroup]="profileForm">
+                <div class="body__input">
+                    <label>Логин</label>
+                    <input nbInput
+                           fullWidth
+                           type="text"
+                           placeholder="Ваш логин"
+                           [formControlName]="'login'">
+                </div>
+                <div class="body__input">
+                    <label>Почта</label>
+                    <input nbInput
+                           fullWidth
+                           type="text"
+                           placeholder="Ваша Почта@mailbox.com"
+                           [formControlName]="'email'">
+                </div>
+                <div class="body__input">
+                    <label>Телефон</label>
+                    <input nbInput
+                           fullWidth
+                           type="text"
+                           placeholder="+79990001122"
+                           [formControlName]="'phoneNumber'">
+                </div>
+                <div class="body__input">
+                    <label>ФИО</label>
+                    <input
+                        nbInput
+                        fullWidth
+                        type="text"
+                        placeholder="Фамилия Имя Отчество"
+                        [formControlName]="'fullName'">
+                </div>
+                <div class="body__input_address">
+                    <div class="city">
+                        <label>Город</label>
+                        <input
+                            nbInput
+                            fullWidth
+                            type="text"
+                            placeholder="Самара"
+                            [formControlName]="'city'">
+                    </div>
+                    <div class="street">
+                        <label>Улица</label>
+                        <input
+                            nbInput
+                            fullWidth
+                            type="text"
+                            placeholder="Московское шоссе"
+                            [formControlName]="'street'">
+                    </div>
+                    <div class="building">
+                        <label>Дом</label>
+                        <input nbInput
+                               fullWidth
+                               type="text"
+                               placeholder="1"
+                               [formControlName]="'building'">
+                    </div>
+                    <div class="letter">
+                        <label>Литер</label>
+                        <input nbInput
+                               fullWidth
+                               type="text"
+                               placeholder="Б"
+                               [formControlName]="'letter'">
+                    </div>
+                    <div class="flat-number">
+                        <label>Квартира</label>
+                        <input nbInput
+                               fullWidth
+                               type="text"
+                               placeholder="1"
+                               [formControlName]="'flatNumber'">
+                    </div>
+                </div>
+                <div class="body__button">
+                    <button nbButton fullWidth status="primary" type="submit">СОХРАНИТЬ ДАННЫЕ</button>
+                </div>
+            </form>
+        </nb-card-body>
+    </nb-card>
+</div>
+
+
