@@ -7,6 +7,8 @@ import {RegistrationComponent} from './components/auth/registration/registration
 import {
     NbButtonModule,
     NbCardModule,
+    NbDialogModule,
+    NbDialogService,
     NbFormFieldModule, NbIconModule,
     NbInputModule,
     NbLayoutModule,
@@ -24,7 +26,9 @@ import {TextMaskModule} from 'angular2-text-mask';
 import {ChangePasswordComponent} from './components/auth/change-password/change-password.component';
 import { MainPageComponent } from './components/main/main-page/main-page.component';
 import { TopPanelComponent } from './components/main/top-panel/top-panel.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/profile/profile-page/profile-page.component';
+import { IncidentComponent } from './components/profile/incident/incident.component';
+import { config } from 'rxjs';
 
 @NgModule({
     declarations: [
@@ -36,7 +40,8 @@ import { ProfileComponent } from './components/profile/profile.component';
         ChangePasswordComponent,
         MainPageComponent,
         TopPanelComponent,
-        ProfileComponent
+        ProfileComponent,
+        IncidentComponent
     ],
     imports: [
         BrowserModule,
@@ -54,9 +59,10 @@ import { ProfileComponent } from './components/profile/profile.component';
         NbTooltipModule,
         HttpClientModule,
         TextMaskModule,
-        NbUserModule
+        NbUserModule,
+        NbDialogModule.forRoot(),
     ],
-    providers: [NbStatusService],
+    providers: [NbStatusService, NbDialogService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

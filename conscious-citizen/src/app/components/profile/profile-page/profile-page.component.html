@@ -7,9 +7,9 @@
             </div>
         </nb-card-header>
         <nb-card-body class="profile-form__body">
-            <div class="body__edit">
+            <div class="body__edit" (click)="changeStatusEditing()">
                 <div class="edit__text">
-                    Режим редактирования
+                    {{editingText}}
                 </div>
                 <div class="edit__img">
                     <img src="../../../assets/img/edit_icon.png" alt="Иконка редактирования">
@@ -93,8 +93,8 @@
                                [formControlName]="'flatNumber'">
                     </div>
                 </div>
-                <div class="body__button">
-                    <button nbButton fullWidth status="primary" type="submit">СОХРАНИТЬ ДАННЫЕ</button>
+                <div class="body__button" (click)="checkBtnAction()">
+                    <button nbButton fullWidth status="primary" type="submit">{{buttonText}}</button>
                 </div>
             </form>
         </nb-card-body>
