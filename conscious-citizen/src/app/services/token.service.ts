@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {KEYS} from "../models/constants";
 import {LoggedUser} from "../models/User";
 
@@ -65,6 +65,12 @@ export class TokenService {
         }
 
         return this.roles;
+    }
+
+    public setTokenHeader(headers: HttpHeaders): HttpHeaders {
+        if (headers.get('Authorization')) headers = headers.delete('Authorization');
+        headers = headers.append('Authorization', this.getTokenType()+ ' ' + this.getToken());
+        return headers;
     }
 
     readLoginResponse(loginBody: LoggedUser): void {

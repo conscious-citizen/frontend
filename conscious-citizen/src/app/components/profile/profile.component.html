@@ -7,93 +7,125 @@
             </div>
         </nb-card-header>
         <nb-card-body class="profile-form__body">
-            <div class="body__edit">
-                <div class="edit__text">
+            <div class="body__edit" (click)="onEditModeChange()">
+                <div class="edit__text" *ngIf="!isEditMode">
                     Режим редактирования
+                </div>
+                <div class="edit__text" *ngIf="isEditMode">
+                    Выйти из режима редактирования
                 </div>
                 <div class="edit__img">
                     <img src="../../../assets/img/edit_icon.png" alt="Иконка редактирования">
                 </div>
             </div>
-            <form [formGroup]="profileForm">
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
                 <div class="body__input">
                     <label>Логин</label>
                     <input nbInput
+                           [disabled]="!isEditMode"
                            fullWidth
                            type="text"
-                           placeholder="Ваш логин"
-                           [formControlName]="'login'">
+                           [formControlName]="'login'"
+                           [nbTooltip]="this.tooltips['login'].tooltipText"
+                           [nbTooltipDisabled]="!this.tooltips['login'].isShow"
+                           nbTooltipStatus="danger"
+                           [status]="changeInputStatus(profileForm.controls['login'].invalid)">
                 </div>
                 <div class="body__input">
                     <label>Почта</label>
                     <input nbInput
+                           [disabled]="!isEditMode"
                            fullWidth
                            type="text"
-                           placeholder="Ваша Почта@mailbox.com"
-                           [formControlName]="'email'">
+                           [formControlName]="'email'"
+                           [nbTooltip]="this.tooltips['email'].tooltipText"
+                           [nbTooltipDisabled]="!this.tooltips['email'].isShow"
+                           nbTooltipStatus="danger"
+                           [textMask]="{mask: emailMask}"
+                           [status]="changeInputStatus(profileForm.controls['email'].invalid)">
                 </div>
                 <div class="body__input">
                     <label>Телефон</label>
                     <input nbInput
+                           [disabled]="!isEditMode"
                            fullWidth
                            type="text"
-                           placeholder="+79990001122"
-                           [formControlName]="'phoneNumber'">
+                           [formControlName]="'phoneNumber'"
+                           [nbTooltip]="this.tooltips['phoneNumber'].tooltipText"
+                           [nbTooltipDisabled]="!this.tooltips['phoneNumber'].isShow"
+                           nbTooltipStatus="danger"
+                           [status]="changeInputStatus(profileForm.controls['phoneNumber'].invalid)">
                 </div>
                 <div class="body__input">
                     <label>ФИО</label>
                     <input
+                        [disabled]="!isEditMode"
                         nbInput
                         fullWidth
                         type="text"
-                        placeholder="Фамилия Имя Отчество"
-                        [formControlName]="'fullName'">
+                        [formControlName]="'fullName'"
+                        [nbTooltip]="this.tooltips['fullName'].tooltipText"
+                        [nbTooltipDisabled]="!this.tooltips['fullName'].isShow"
+                        nbTooltipStatus="danger"
+                        [status]="changeInputStatus(profileForm.controls['fullName'].invalid)">
                 </div>
                 <div class="body__input_address">
                     <div class="city">
                         <label>Город</label>
                         <input
+                            [disabled]="!isEditMode"
                             nbInput
                             fullWidth
                             type="text"
-                            placeholder="Самара"
-                            [formControlName]="'city'">
+                            [formControlName]="'city'"
+                            [nbTooltip]="this.tooltips['city'].tooltipText"
+                            [nbTooltipDisabled]="!this.tooltips['city'].isShow"
+                            nbTooltipStatus="danger"
+                            [status]="changeInputStatus(profileForm.controls['city'].invalid)">
                     </div>
                     <div class="street">
                         <label>Улица</label>
                         <input
                             nbInput
+                            [disabled]="!isEditMode"
                             fullWidth
                             type="text"
-                            placeholder="Московское шоссе"
-                            [formControlName]="'street'">
+                            [formControlName]="'street'"
+                            [nbTooltip]="this.tooltips['street'].tooltipText"
+                            [nbTooltipDisabled]="!this.tooltips['street'].isShow"
+                            nbTooltipStatus="danger"
+                            [status]="changeInputStatus(profileForm.controls['street'].invalid)">
                     </div>
                     <div class="building">
                         <label>Дом</label>
                         <input nbInput
+                               [disabled]="!isEditMode"
                                fullWidth
                                type="text"
-                               placeholder="1"
-                               [formControlName]="'building'">
+                               [formControlName]="'building'"
+                               [nbTooltip]="this.tooltips['building'].tooltipText"
+                               [nbTooltipDisabled]="!this.tooltips['building'].isShow"
+                               nbTooltipStatus="danger"
+                               [status]="changeInputStatus(profileForm.controls['building'].invalid)">
                     </div>
                     <div class="letter">
                         <label>Литер</label>
                         <input nbInput
+                               [disabled]="!isEditMode"
                                fullWidth
                                type="text"
-                               placeholder="Б"
                                [formControlName]="'letter'">
                     </div>
                     <div class="flat-number">
                         <label>Квартира</label>
                         <input nbInput
+                               [disabled]="!isEditMode"
                                fullWidth
                                type="text"
-                               placeholder="1"
                                [formControlName]="'flatNumber'">
                     </div>
                 </div>
-                <div class="body__button">
+                <div class="body__button" *ngIf="isEditMode">
                     <button nbButton fullWidth status="primary" type="submit">СОХРАНИТЬ ДАННЫЕ</button>
                 </div>
             </form>

@@ -16,6 +16,6 @@ export class LoginService {
 
     login(user: any) {
         const body = {"username": user.user_name, "password": user.password};
-        return this.http.post(API_ROUTES.LOGIN_URL, body, httpOptions);
+        return this.http.post(API_ROUTES.LOGIN_URL, body);
     }
 }
