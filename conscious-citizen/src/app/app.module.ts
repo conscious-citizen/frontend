@@ -25,6 +25,12 @@ import {ChangePasswordComponent} from './components/auth/change-password/change-
 import { MainPageComponent } from './components/main/main-page/main-page.component';
 import { TopPanelComponent } from './components/main/top-panel/top-panel.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import {LoginService} from "./services/login.service";
+import {RegistrationService} from "./services/registration.service";
+import {ResetPasswordService} from "./services/reset-password.service";
+import {TokenService} from "./services/token.service";
+import {UserInfoService} from "./services/user-info.service";
+import {UtilsService} from "./services/utils.service";
 
 @NgModule({
     declarations: [
@@ -56,7 +62,14 @@ import { ProfileComponent } from './components/profile/profile.component';
         TextMaskModule,
         NbUserModule
     ],
-    providers: [NbStatusService],
+    providers: [
+        NbStatusService,
+        LoginService,
+        RegistrationService,
+        TokenService,
+        UserInfoService,
+        UtilsService,
+        ResetPasswordService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

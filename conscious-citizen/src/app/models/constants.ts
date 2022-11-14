@@ -31,8 +31,8 @@ export const INPUT_TOOLTIP_ERROR_MESSAGES = {
 }
 
 export enum ROLES {
-    'USER',
-    'ADMIN',
+    'ROLE_USER' = 'ROLE_USER',
+    'ROLE_ADMIN' = 'ROLE_ADMIN',
 }
 export const KEYS = {
     TOKEN: 'AuthToken',

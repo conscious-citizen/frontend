@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {FormGroup} from "@angular/forms";
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +11,10 @@ export class UtilsService {
 
     insertValueInTooltipMessage(message: string, value: string): string {
         return message.replace('{value}',value);
+    }
+
+    splitFullNameOfForm(form: FormGroup): any {
+        return form.controls['fullName'].value.split(' ');
     }
 
 }
