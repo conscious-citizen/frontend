@@ -6,7 +6,8 @@ import {PageNotFoundComponent} from "./shared-components/page-not-found/page-not
 import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
 import { MainPageComponent } from './components/main/main-page/main-page.component';
-import {ProfileComponent} from "./components/profile/profile-page/profile-page.component";
+import {ProfileComponent} from "./components/profile/profile.component";
+import {MapComponent} from "./components/map/map.component";
 
 const routes: Routes = [
     { path: '', component: MainPageComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'change-password', component: ChangePasswordComponent },
     { path: 'profile', component: ProfileComponent },
+    { path: 'map', component: MapComponent},
     { path: '**', component: PageNotFoundComponent }
 ];
 

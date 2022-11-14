@@ -26,10 +26,10 @@ import {TextMaskModule} from 'angular2-text-mask';
 import {ChangePasswordComponent} from './components/auth/change-password/change-password.component';
 import { MainPageComponent } from './components/main/main-page/main-page.component';
 import { TopPanelComponent } from './components/main/top-panel/top-panel.component';
-import { ProfileComponent } from './components/profile/profile-page/profile-page.component';
 import { IncidentComponent } from './components/profile/incident/incident.component';
 import { config } from 'rxjs';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MapComponent } from './components/map/map.component';
 import {LoginService} from "./services/login.service";
 import {RegistrationService} from "./services/registration.service";
 import {ResetPasswordService} from "./services/reset-password.service";
@@ -48,7 +48,8 @@ import {UtilsService} from "./services/utils.service";
         MainPageComponent,
         TopPanelComponent,
         ProfileComponent,
-        IncidentComponent
+        IncidentComponent,
+        MapComponent
     ],
     imports: [
         BrowserModule,
@@ -69,8 +70,8 @@ import {UtilsService} from "./services/utils.service";
         NbUserModule,
         NbDialogModule.forRoot(),
     ],
-    providers: [NbStatusService, NbDialogService],
-    providers: [
+    providers: [NbStatusService,
+        NbDialogService,
         NbStatusService,
         LoginService,
         RegistrationService,
