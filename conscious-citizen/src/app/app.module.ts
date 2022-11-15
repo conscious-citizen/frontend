@@ -29,7 +29,6 @@ import { TopPanelComponent } from './components/main/top-panel/top-panel.compone
 import { ProfileComponent } from './components/profile/profile-page/profile-page.component';
 import { IncidentComponent } from './components/profile/incident/incident.component';
 import { config } from 'rxjs';
-import { ProfileComponent } from './components/profile/profile.component';
 import {LoginService} from "./services/login.service";
 import {RegistrationService} from "./services/registration.service";
 import {ResetPasswordService} from "./services/reset-password.service";
@@ -69,7 +68,6 @@ import {UtilsService} from "./services/utils.service";
         NbUserModule,
         NbDialogModule.forRoot(),
     ],
-    providers: [NbStatusService, NbDialogService],
     providers: [
         NbStatusService,
         LoginService,
@@ -77,7 +75,8 @@ import {UtilsService} from "./services/utils.service";
         TokenService,
         UserInfoService,
         UtilsService,
-        ResetPasswordService],
+        ResetPasswordService,
+        NbDialogService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
