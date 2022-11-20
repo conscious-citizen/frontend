@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import {FormControl, FormGroup} from "@angular/forms";
 import { NbDialogService } from '@nebular/theme';
 import { IncidentComponent } from '../incident/incident.component';
 import {INPUT_TOOLTIP_ERROR_MESSAGES, INPUT_TYPES, ROLES, Tooltips} from "../../../models/constants";
@@ -221,4 +221,4 @@ export class ProfileComponent implements OnInit, AfterViewInit  {
   openModalWindow() {
       this.dialogService.open(IncidentComponent, { closeOnBackdropClick: false });
   }
-}
+}*/
