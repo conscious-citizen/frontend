@@ -1,3 +1,4 @@
+/*
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import { NbDialogService } from '@nebular/theme';
@@ -46,4 +47,4 @@ export class ProfileComponent implements OnInit {
       this.dialogService.open(IncidentComponent, { closeOnBackdropClick: false });
     }
   }
-}
+}*/
