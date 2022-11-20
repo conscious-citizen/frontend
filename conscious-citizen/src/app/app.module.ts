@@ -78,7 +78,8 @@ import {UtilsService} from "./services/utils.service";
         TokenService,
         UserInfoService,
         UtilsService,
-        ResetPasswordService],
+        ResetPasswordService,
+        NbDialogService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
