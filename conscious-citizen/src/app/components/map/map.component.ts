@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {NbDialogService} from "@nebular/theme";
-import {IncidentComponent} from "../profile/incident/incident.component";
+import {CreateIncidentComponent} from "../incident/create-incident/create-incident.component";
 
 declare const ymaps: any;
 
@@ -53,7 +53,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
 
     openModalWindow(): void {
-        this.dialogService.open(IncidentComponent, {closeOnBackdropClick: true});
+        this.dialogService.open(CreateIncidentComponent, {closeOnBackdropClick: true});
     }
 
 }

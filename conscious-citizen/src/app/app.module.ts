@@ -26,7 +26,7 @@ import {TextMaskModule} from 'angular2-text-mask';
 import {ChangePasswordComponent} from './components/auth/change-password/change-password.component';
 import { MainPageComponent } from './components/main/main-page/main-page.component';
 import { TopPanelComponent } from './components/main/top-panel/top-panel.component';
-import { IncidentComponent } from './components/profile/incident/incident.component';
+import { CreateIncidentComponent } from './components/incident/create-incident/create-incident.component';
 import { config } from 'rxjs';
 import { ProfileComponent } from './components/profile/profile-page/profile-page.component';
 import { MapComponent } from './components/map/map.component';
@@ -36,6 +36,8 @@ import {ResetPasswordService} from "./services/reset-password.service";
 import {TokenService} from "./services/token.service";
 import {UserInfoService} from "./services/user-info.service";
 import {UtilsService} from "./services/utils.service";
+import {ViewIncidentComponent} from "./components/incident/view-incident/view-incident.component";
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
     declarations: [
@@ -48,7 +50,8 @@ import {UtilsService} from "./services/utils.service";
         MainPageComponent,
         TopPanelComponent,
         ProfileComponent,
-        IncidentComponent,
+        CreateIncidentComponent,
+        ViewIncidentComponent,
         MapComponent
     ],
     imports: [
@@ -69,6 +72,7 @@ import {UtilsService} from "./services/utils.service";
         TextMaskModule,
         NbUserModule,
         NbDialogModule.forRoot(),
+        SwiperModule,
     ],
     providers: [NbStatusService,
         NbDialogService,

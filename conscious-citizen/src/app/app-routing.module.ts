@@ -8,7 +8,8 @@ import { ChangePasswordComponent } from './components/auth/change-password/chang
 import { MainPageComponent } from './components/main/main-page/main-page.component';
 import {ProfileComponent} from "./components/profile/profile-page/profile-page.component";
 import {MapComponent} from "./components/map/map.component";
-import {IncidentComponent} from "./components/profile/incident/incident.component";
+import {CreateIncidentComponent} from "./components/incident/create-incident/create-incident.component";
+import {ViewIncidentComponent} from "./components/incident/view-incident/view-incident.component";
 
 const routes: Routes = [
     { path: '', component: MainPageComponent},
@@ -18,7 +19,8 @@ const routes: Routes = [
     { path: 'change-password', component: ChangePasswordComponent },
     { path: 'profile', component: ProfileComponent },
     { path: 'map', component: MapComponent},
-    { path: 'incident', component: IncidentComponent},
+    { path: 'incident', component: CreateIncidentComponent},
+    {path: 'view-incident', component: ViewIncidentComponent},
     { path: '**', component: PageNotFoundComponent },
 ];
 

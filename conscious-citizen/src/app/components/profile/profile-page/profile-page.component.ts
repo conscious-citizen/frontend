@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { NbDialogService } from '@nebular/theme';
-import { IncidentComponent } from '../incident/incident.component';
+import { CreateIncidentComponent } from '../../incident/create-incident/create-incident.component';
 import {INPUT_TOOLTIP_ERROR_MESSAGES, INPUT_TYPES, ROLES, Tooltips} from "../../../models/constants";
 import {UserInfo} from "../../../models/User";
 import emailMask from 'text-mask-addons/dist/emailMask';
