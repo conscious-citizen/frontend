@@ -1,4 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {NbDialogService} from "@nebular/theme";
+import {CreateIncidentComponent} from "../incident/create-incident/create-incident.component";
+
 declare const ymaps: any;
 
 @Component({
@@ -7,25 +10,50 @@ declare const ymaps: any;
 })
 export class MapComponent implements OnInit, AfterViewInit {
 
-    constructor() {
+    map: any;
+
+    constructor(private dialogService: NbDialogService) {
     }
 
     ngOnInit(): void {
     }
 
+    async waitForMapLoad() {
+        return await ymaps.ready();
+    }
+
     ngAfterViewInit(): void {
-        ymaps.ready(() => {
-            let myMap = new ymaps.Map("map", {
-                // Координаты центра карты.
-                // Порядок по умолчанию: «широта, долгота».
-                // Чтобы не определять координаты центра карты вручную,
-                // воспользуйтесь инструментом Определение координат.
-                center: [53.2123113,50.1793168],
-                // Уровень масштабирования. Допустимые значения:
-                // от 0 (весь мир) до 19.
+        /*const openModalWindow = this.openModalWindow;
+        const dialogService = this.dialogService;*/
+        this.waitForMapLoad().then(()=> {
+            this.map = new ymaps.Map("map", {
+                center: [53.2123113, 50.1793168],
                 zoom: 15
             });
-        });
+            this.map.events.add('click', (e: any) => {
+                this.openModalWindow();
+                /*if (!map.balloon.isOpen()) {
+                    const coords = e.get('coords');
+                    map.balloon.open(coords, {
+                        contentHeader:'Событие!',
+                        contentBody:'<p>Кто-то щелкнул по карте.</p>' +
+                            '<p>Координаты щелчка: ' + [
+                                coords[0].toPrecision(6),
+                                coords[1].toPrecision(6)
+                            ].join(', ') + '</p>',
+                        contentFooter:'<sup>Щелкните еще раз</sup>'
+                    });
+                }
+                else {
+                    map.balloon.close();
+                }*/
+            });
+        })
+
+    }
+
+    openModalWindow(): void {
+        this.dialogService.open(CreateIncidentComponent, {closeOnBackdropClick: true});
     }
 
 }

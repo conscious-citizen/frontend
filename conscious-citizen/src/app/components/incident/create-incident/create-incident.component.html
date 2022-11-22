@@ -2,7 +2,7 @@
   <nb-card accent="info">
     <nb-card-header class="modal__header">
       Создание сообщения
-      <button class="header__button" (click)="close()">&#215;</button>
+      <button nbButton size="small" class="header__button" status="danger" (click)="close()"><nb-icon icon="close-outline"></nb-icon></button>
     </nb-card-header>
     <nb-card-body class="modal__body">
       <div class="body__title">Опишите проблему</div>
@@ -12,6 +12,7 @@
             <input nbInput
                    fullWidth
                    type="text"
+                   autofocus
                    placeholder="Ваша тема"
                    [formControlName]="'topic'">
         </div>

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import { NbDialogService } from '@nebular/theme';
-import { IncidentComponent } from '../incident/incident.component';
+import { CreateIncidentComponent } from '../../incident/create-incident/create-incident.component';
 import {INPUT_TOOLTIP_ERROR_MESSAGES, INPUT_TYPES, ROLES, Tooltips} from "../../../models/constants";
 import {UserInfo} from "../../../models/User";
 import emailMask from 'text-mask-addons/dist/emailMask';
@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit, AfterViewInit  {
     letter: new FormControl(''),
     flatNumber: new FormControl('')
   });
-  
+
   tooltips: Tooltips = {
     login: {isShow: false, tooltipText: ''},
     email: {isShow: false, tooltipText: ''},
@@ -46,8 +46,7 @@ export class ProfileComponent implements OnInit, AfterViewInit  {
     building: {isShow: false, tooltipText: ''},
   }
 
-  constructor(private dialogService: NbDialogService,
-              private utils: UtilsService,
+  constructor(private utils: UtilsService,
               private userInfoService: UserInfoService) { }
 
   ngOnInit(): void {
@@ -217,8 +216,4 @@ export class ProfileComponent implements OnInit, AfterViewInit  {
         this.tooltips[key].isShow = false;
     });
   }
-
-  openModalWindow() {
-      this.dialogService.open(IncidentComponent, { closeOnBackdropClick: false });
-  }
-}*/
+}

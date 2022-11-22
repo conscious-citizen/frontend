@@ -1,0 +1,56 @@
+<div class="view-incident-wrapper">
+    <nb-card accent="info">
+        <nb-card-header class="view__header">
+            <div class="header__title">Новое сообщение</div>
+            <button nbButton size="small" class="header__button" status="danger">
+                <nb-icon icon="close-outline"></nb-icon>
+            </button>
+        </nb-card-header>
+        <nb-card-body class="view__body">
+            <div class="body__title">Тема сообщения</div>
+            <div class="swiper__button">
+
+                <button (click)="slidePrev()" nbButton class="swiper__button-left">
+                    <nb-icon icon="arrow-ios-back-outline"></nb-icon>
+                </button>
+                <swiper class="swiper"
+                        #swiper
+                        [slidesPerView]="1"
+
+                        (swiper)="onSwiper($event)"
+                        (slideChange)="onSlideChange()"
+
+                >
+                    <ng-template swiperSlide class="swiper__item"><img src="assets/img/example.png"></ng-template>
+                    <ng-template swiperSlide class="swiper__item"><img src="assets/img/example1.png"></ng-template>
+                    <ng-template swiperSlide class="swiper__item"><img src="assets/img/example.png"></ng-template>
+
+                </swiper>
+                <button (click)="slideNext()" nbButton class="swiper__button-right">
+                    <nb-icon icon="arrow-ios-forward-outline"></nb-icon>
+                </button>
+            </div>
+            <div class="body__address">Адрес события</div>
+            <div class="body__message">
+                <p>Текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст
+                    сообщения текст сообщения
+                </p></div>
+        </nb-card-body>
+        <nb-card-footer class="view__footer">
+            <div class="footer__buttons">
+                <button nbButton class="button__item">
+                    <nb-icon icon="edit-2-outline"></nb-icon>
+                </button>
+                <button nbButton class="button__item">
+                    <nb-icon icon="save-outline"></nb-icon>
+                </button>
+                <button nbButton class="button__item">
+                    <nb-icon icon="email-outline"></nb-icon>
+                </button>
+                <button nbButton class="button__item">
+                    <nb-icon icon="printer-outline"></nb-icon>
+                </button>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</div>
