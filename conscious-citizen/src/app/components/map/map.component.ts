@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {NbDialogService} from "@nebular/theme";
 import {CreateIncidentComponent} from "../incident/create-incident/create-incident.component";
+import {ViewIncidentComponent} from "../incident/view-incident/view-incident.component";
 
 declare const ymaps: any;
 
@@ -48,12 +49,21 @@ export class MapComponent implements OnInit, AfterViewInit {
                     map.balloon.close();
                 }*/
             });
+            let myPlacemark = new ymaps.Placemark([53.2123113, 50.1793168], {
+                mousedown: this.openModalWindow1,
+            });
+            myPlacemark.events.add('click', (e: any) => this.openModalWindow1());
+            this.map.geoObjects.add(myPlacemark);
         })
 
     }
 
     openModalWindow(): void {
         this.dialogService.open(CreateIncidentComponent, {closeOnBackdropClick: true});
+    }
+
+    openModalWindow1(): void {
+        this.dialogService.open(ViewIncidentComponent, {closeOnBackdropClick: true});
     }
 
 }

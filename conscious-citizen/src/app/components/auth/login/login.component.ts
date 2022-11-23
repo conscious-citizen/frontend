@@ -5,6 +5,7 @@ import {INPUT_TOOLTIP_ERROR_MESSAGES, INPUT_TYPES, Tooltips} from "../../../mode
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UtilsService} from "../../../services/utils.service";
 import {TokenService} from "../../../services/token.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-login',
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
     user: any;
     loggedUser: any;
 
-    constructor(private loginService: LoginService, private utils: UtilsService, private tokenService: TokenService) {
+    constructor(private loginService: LoginService, private utils: UtilsService, private tokenService: TokenService, private router: Router) {
     }
 
     ngOnInit(): void {
@@ -50,6 +51,7 @@ export class LoginComponent implements OnInit {
                 console.log(res)
                 this.tokenService.readLoginResponse(res as LoggedUser);
                 this.loggedUser = res;
+                this.router.navigate(['/map']);
             });
         }
     }
