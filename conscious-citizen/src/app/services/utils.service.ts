@@ -14,7 +14,7 @@ export class UtilsService {
     }
 
     splitFullNameOfForm(form: FormGroup): any {
-        return form.controls['fullName'].value.split(' ');
+        return form.get('fullName')?.value.split(' ');
     }
 
 }

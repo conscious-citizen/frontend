@@ -31,7 +31,7 @@ export const INPUT_TOOLTIP_ERROR_MESSAGES = {
 }
 
 export enum ROLES {
-    'ROLE_USER' = 'ROLE_USER',
+    'ROLE_USER' = 'USER',
     'ROLE_ADMIN' = 'ROLE_ADMIN',
 }
 export const KEYS = {
@@ -40,5 +40,8 @@ export const KEYS = {
     AUTHORITIES: 'AuthAuthorities',
     TOKEN_HEADER: 'Authorization',
     TOKEN_TYPE: 'AuthTokenType',
+    FIRSTNAME:'AuthFirstName',
+    LASTNAME:'AuthLastName',
+
 }
 

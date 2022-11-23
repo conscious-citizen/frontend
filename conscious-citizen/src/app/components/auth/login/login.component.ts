@@ -1,11 +1,13 @@
 import {Component, OnInit} from "@angular/core";
 import {LoggedUser, User} from "../../../models/User";
 import {LoginService} from "../../../services/login.service";
-import {INPUT_TOOLTIP_ERROR_MESSAGES, INPUT_TYPES, Tooltips} from "../../../models/constants";
+import {INPUT_TOOLTIP_ERROR_MESSAGES, INPUT_TYPES, KEYS, Tooltips} from "../../../models/constants";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UtilsService} from "../../../services/utils.service";
 import {TokenService} from "../../../services/token.service";
 import {Router} from "@angular/router";
+import {take} from "rxjs";
+import {UserInfoService} from "../../../services/user-info.service";
 
 @Component({
     selector: 'app-login',
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
     user: any;
     loggedUser: any;
 
-    constructor(private loginService: LoginService, private utils: UtilsService, private tokenService: TokenService, private router: Router) {
+    constructor(private loginService: LoginService, private utils: UtilsService, private tokenService: TokenService, private router: Router, private userService: UserInfoService) {
     }
 
     ngOnInit(): void {
@@ -47,13 +49,24 @@ export class LoginComponent implements OnInit {
             this.loginService.login({
                 user_name: this.loginForm.controls['login'].value,
                 password: this.loginForm.controls['password'].value
-            }).subscribe((res) => {
+            }).pipe(take(1)).subscribe((res) => {
                 console.log(res)
                 this.tokenService.readLoginResponse(res as LoggedUser);
                 this.loggedUser = res;
-                this.router.navigate(['/map']);
+
+                this.userService.getUserInfo().pipe(take(1)).subscribe((res) => {
+                    // @ts-ignore
+                    window.sessionStorage.setItem(KEYS.FIRSTNAME,res.firstName)
+                    // @ts-ignore
+                    window.sessionStorage.setItem(KEYS.LASTNAME,res.lastName)
+                    // @ts-ignore
+
+                    this.router.navigate(['/map']);
+                })
+
             });
         }
+
     }
 
     changeInputStatus(validatorStateInvalid: boolean): string {
