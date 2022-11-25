@@ -1,4 +1,7 @@
 .view-incident-wrapper {
+    margin: auto;
+    width: 50%;
+    min-width: 600px;
     .view__header {
         display: flex;
         justify-content: space-between;
@@ -24,6 +27,8 @@
     }
 
     .view__body {
+        max-height: 600px;
+        overflow-y: scroll;
         .body__title {
             text-align: center;
             font-style: normal;
@@ -41,11 +46,11 @@
             align-items: center;
 
             .swiper__button-left {
-                margin-left: 20%;
+                margin-left: 5%;
             }
 
             .swiper__button-right {
-                margin-right: 20%;
+                margin-right: 5%;
             }
 
             .swiper {

@@ -22,6 +22,7 @@ export class UserInfoService {
     }
 
     patchUserInfo(user: UserInfoForUpdate) {
+        console.log(user);
         httpOptions['headers'] = this.tokenService.setTokenHeader(httpOptions['headers']);
         return this.http.patch(API_ROUTES.UPDATE_USER_INFO, JSON.stringify(user), httpOptions);
     }
