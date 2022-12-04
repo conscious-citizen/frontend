@@ -3,10 +3,17 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {KEYS} from "../models/constants";
 import {LoggedUser} from "../models/User";
 
+type UserDataForReset = {
+    username: string,
+    firstName: string,
+    lastName: string,
+    patronymic: string,
+}
+
 @Injectable({
     providedIn: 'root'
 })
-export class TokenService {
+export class UserCredentialsService {
     private roles: Array<string> = [];
 
     constructor() {
@@ -32,6 +39,24 @@ export class TokenService {
         window.sessionStorage.setItem(KEYS.USERNAME, username);
     }
 
+    public saveFirstName(firstName: string) {
+        console.log('saveUserName',firstName);
+        window.sessionStorage.removeItem(KEYS.FIRST_NAME);
+        window.sessionStorage.setItem(KEYS.FIRST_NAME, firstName);
+    }
+
+    public saveLastName(lastName: string) {
+        console.log('saveLastName',lastName);
+        window.sessionStorage.removeItem(KEYS.LAST_NAME);
+        window.sessionStorage.setItem(KEYS.LAST_NAME, lastName);
+    }
+
+    public savePatronymic(patronymic: string) {
+        console.log('saveLastName',patronymic);
+        window.sessionStorage.removeItem(KEYS.PATRONYMIC);
+        window.sessionStorage.setItem(KEYS.PATRONYMIC, patronymic);
+    }
+
     public saveTokenType(type: string) {
         console.log('saveTokenType',type);
         window.sessionStorage.removeItem(KEYS.TOKEN_TYPE);
@@ -40,6 +65,18 @@ export class TokenService {
 
     public getTokenType(): string | null {
         return sessionStorage.getItem(KEYS.TOKEN_TYPE);
+    }
+
+    public getFirstName(): string | null {
+        return sessionStorage.getItem(KEYS.FIRST_NAME);
+    }
+
+    public getLastName(): string | null {
+        return sessionStorage.getItem(KEYS.LAST_NAME);
+    }
+
+    public getPatronymic(): string | null {
+        return sessionStorage.getItem(KEYS.PATRONYMIC);
     }
 
     public getUsername(): string | null {
@@ -65,6 +102,13 @@ export class TokenService {
         }
 
         return this.roles;
+    }
+
+    public resetUserDataWithoutLogout (data: UserDataForReset): void {
+        this.saveUsername(data.username);
+        this.saveFirstName(data.firstName);
+        this.saveLastName(data.lastName);
+        this.savePatronymic(data.patronymic);
     }
 
     public setTokenHeader(headers: HttpHeaders): HttpHeaders {

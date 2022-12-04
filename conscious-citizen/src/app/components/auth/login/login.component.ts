@@ -1,10 +1,10 @@
 import {Component, OnInit} from "@angular/core";
-import {LoggedUser, User} from "../../../models/User";
+import {LoggedUser, User, UserInfo} from "../../../models/User";
 import {LoginService} from "../../../services/login.service";
 import {INPUT_TOOLTIP_ERROR_MESSAGES, INPUT_TYPES, KEYS, Tooltips} from "../../../models/constants";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UtilsService} from "../../../services/utils.service";
-import {TokenService} from "../../../services/token.service";
+import {UserCredentialsService} from "../../../services/user-credentials.service";
 import {Router} from "@angular/router";
 import {take} from "rxjs";
 import {UserInfoService} from "../../../services/user-info.service";
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     user: any;
     loggedUser: any;
 
-    constructor(private loginService: LoginService, private utils: UtilsService, private tokenService: TokenService, private router: Router, private userService: UserInfoService) {
+    constructor(private loginService: LoginService, private utils: UtilsService, private tokenService: UserCredentialsService, private router: Router, private userService: UserInfoService) {
     }
 
     ngOnInit(): void {
@@ -56,10 +56,11 @@ export class LoginComponent implements OnInit {
 
                 this.userService.getUserInfo().pipe(take(1)).subscribe((res) => {
                     // @ts-ignore
-                    window.sessionStorage.setItem(KEYS.FIRSTNAME,res.firstName)
+                    this.tokenService.saveFirstName(res.firstName);
                     // @ts-ignore
-                    window.sessionStorage.setItem(KEYS.LASTNAME,res.lastName)
+                    this.tokenService.saveLastName(res.lastName);
                     // @ts-ignore
+                    this.tokenService.savePatronymic(res.patronymic);
 
                     this.router.navigate(['/map']);
                 })

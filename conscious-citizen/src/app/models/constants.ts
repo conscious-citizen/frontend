@@ -40,8 +40,13 @@ export const KEYS = {
     AUTHORITIES: 'AuthAuthorities',
     TOKEN_HEADER: 'Authorization',
     TOKEN_TYPE: 'AuthTokenType',
-    FIRSTNAME:'AuthFirstName',
-    LASTNAME:'AuthLastName',
+    FIRST_NAME:'AuthFirstName',
+    LAST_NAME:'AuthLastName',
+    PATRONYMIC: 'Patronymic',
+}
 
+export const PROFILE_MENU_ITEMS = {
+    PROFILE: 'Профиль',
+    LOGOUT: 'Выйти',
 }
 
