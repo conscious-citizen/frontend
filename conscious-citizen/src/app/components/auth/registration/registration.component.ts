@@ -6,6 +6,7 @@ import {RegistrationService} from "../../../services/registration.service";
 import {Router} from "@angular/router";
 import {User} from "../../../models/User";
 import emailMask from 'text-mask-addons/dist/emailMask';
+import * as Console from "console";
 
 @Component({
     selector: 'app-registration',
@@ -61,8 +62,7 @@ export class RegistrationComponent implements OnInit {
 
     onSubmit(): void {
         this.isSubmitClicked = true;
-        this.resetTooltipMessages();
-        this.setTooltipTextForInputs();
+        this.validateForm();
         if (!this.registrationForm.invalid) {
             let splitFullName = this.splitFullName();
             this.registrationService.registration(new User(
@@ -79,6 +79,11 @@ export class RegistrationComponent implements OnInit {
                 this.router.navigate(['/login']);
             });
         }
+    }
+
+    validateForm(): void {
+        this.resetTooltipMessages();
+        this.setTooltipTextForInputs();
     }
 
     splitFullName(): any {
@@ -118,8 +123,8 @@ export class RegistrationComponent implements OnInit {
         }
     }
 
-    changeInputStatus(validatorStateInvalid: boolean): string {
-        if (validatorStateInvalid && this.isSubmitClicked) {
+    changeInputStatus(formControlName:string, validatorStateInvalid: boolean): string {
+        if (validatorStateInvalid && (this.registrationForm.controls[formControlName].touched || this.isSubmitClicked)) {
             return 'danger';
         } else {
             return 'basic';
@@ -127,7 +132,7 @@ export class RegistrationComponent implements OnInit {
     }
 
     changeInputStatusForRepeatPassword(validatorStateInvalid?: boolean): string {
-        if (!this.isRepeatPasswordValid || (validatorStateInvalid && this.isSubmitClicked)) {
+        if (!this.isRepeatPasswordValid || (validatorStateInvalid && (this.registrationForm.controls['repeatPassword'].touched || this.isSubmitClicked))) {
             return 'danger';
         } else {
             return 'basic';
@@ -146,101 +151,117 @@ export class RegistrationComponent implements OnInit {
     }
 
     setTooltipMessagesForLogin() {
-        if (this.registrationForm.getError('required', ['login'])) {
-            this.tooltips['login'].tooltipText =
-                this.tooltips['login'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['login'].isShow = true;
-        }
-        if (this.registrationForm.getError('pattern', ['login'])) {
-            this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
-                this.utils.insertValueInTooltipMessage(
-                    INPUT_TOOLTIP_ERROR_MESSAGES.pattern, 'латинские буквы и знаки подчёркивания');
-            this.tooltips['login'].isShow = true;
-        }
-        if (this.registrationForm.getError('minlength', ['login'])) {
-            this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
-                this.utils.insertValueInTooltipMessage(
-                    INPUT_TOOLTIP_ERROR_MESSAGES.minLength, '5');
-            this.tooltips['login'].isShow = true;
-        }
-        if (this.registrationForm.getError('maxlength', ['login'])) {
-            this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
-                this.utils.insertValueInTooltipMessage(
-                    INPUT_TOOLTIP_ERROR_MESSAGES.maxLength, '50');
-            this.tooltips['login'].isShow = true;
+        if (this.registrationForm.controls['login'].touched || this.isSubmitClicked) {
+            if (this.registrationForm.getError('required', ['login'])) {
+                this.tooltips['login'].tooltipText =
+                    this.tooltips['login'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['login'].isShow = true;
+            }
+            if (this.registrationForm.getError('pattern', ['login'])) {
+                this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
+                    this.utils.insertValueInTooltipMessage(
+                        INPUT_TOOLTIP_ERROR_MESSAGES.pattern, 'строчные латинские буквы и знаки подчёркивания');
+                this.tooltips['login'].isShow = true;
+            }
+            if (this.registrationForm.getError('minlength', ['login'])) {
+                this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
+                    this.utils.insertValueInTooltipMessage(
+                        INPUT_TOOLTIP_ERROR_MESSAGES.minLength, '5');
+                this.tooltips['login'].isShow = true;
+            }
+            if (this.registrationForm.getError('maxlength', ['login'])) {
+                this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
+                    this.utils.insertValueInTooltipMessage(
+                        INPUT_TOOLTIP_ERROR_MESSAGES.maxLength, '50');
+                this.tooltips['login'].isShow = true;
+            }
         }
     }
 
     setTooltipMessagesForEmail() {
-        if (this.registrationForm.getError('required', ['email'])) {
-            this.tooltips['email'].tooltipText =
-                this.tooltips['email'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['email'].isShow = true;
-        }
-        if (this.registrationForm.getError('email', ['email'])) {
-            this.tooltips['email'].tooltipText =
-                this.tooltips['email'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.email);
-            this.tooltips['email'].isShow = true;
+        if (this.registrationForm.controls['email'].touched || this.isSubmitClicked) {
+            if (this.registrationForm.getError('required', ['email'])) {
+                this.tooltips['email'].tooltipText =
+                    this.tooltips['email'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['email'].isShow = true;
+            }
+            if (this.registrationForm.getError('email', ['email'])) {
+                this.tooltips['email'].tooltipText =
+                    this.tooltips['email'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.email);
+                this.tooltips['email'].isShow = true;
+            }
         }
     }
 
     setTooltipMessagesForPassword() {
-        if (this.registrationForm.getError('required', ['password'])) {
-            this.tooltips['password'].tooltipText =
-                this.tooltips['password'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['password'].isShow = true;
-        }
-        if (this.registrationForm.getError('pattern', ['password'])) {
-            this.tooltips['password'].tooltipText = this.tooltips['password'].tooltipText +
-                this.utils.insertValueInTooltipMessage(
-                    INPUT_TOOLTIP_ERROR_MESSAGES.pattern, 'минимум 8 символов, минимум 1 заглавная буква, минимум 1 число минимум 1 из символов #?!@$ %^&*-');
-            this.tooltips['password'].isShow = true;
+        if (this.registrationForm.controls['password'].touched || this.isSubmitClicked) {
+            if (this.registrationForm.getError('required', ['password'])) {
+                this.tooltips['password'].tooltipText =
+                    this.tooltips['password'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['password'].isShow = true;
+            }
+            if (this.registrationForm.getError('pattern', ['password'])) {
+                this.tooltips['password'].tooltipText = this.tooltips['password'].tooltipText +
+                    this.utils.insertValueInTooltipMessage(
+                        INPUT_TOOLTIP_ERROR_MESSAGES.pattern, 'минимум 8 символов, минимум 1 заглавная и 1 строчная буква, минимум 1 число минимум 1 из символов #?!@$ %^&*-');
+                this.tooltips['password'].isShow = true;
+            }
         }
     }
 
     setTooltipMessagesForRepeatPassword() {
-        if (this.registrationForm.getError('required', ['repeatPassword'])) {
-            this.tooltips['repeatPassword'].tooltipText =
-                this.tooltips['repeatPassword'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['repeatPassword'].isShow = true;
+        if (this.registrationForm.controls['repeatPassword'].touched || this.isSubmitClicked) {
+            if (this.registrationForm.getError('required', ['repeatPassword'])) {
+                this.tooltips['repeatPassword'].tooltipText =
+                    this.tooltips['repeatPassword'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['repeatPassword'].isShow = true;
+            }
         }
     }
 
     setTooltipMessagesForPhoneNumber() {
-        if (this.registrationForm.getError('required', ['phoneNumber'])) {
-            this.tooltips['phoneNumber'].tooltipText =
-                this.tooltips['phoneNumber'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['phoneNumber'].isShow = true;
-        }
-        if (this.registrationForm.getError('pattern', ['phoneNumber'])) {
-            this.tooltips['phoneNumber'].tooltipText = this.tooltips['phoneNumber'].tooltipText +
-                this.utils.insertValueInTooltipMessage(
-                    INPUT_TOOLTIP_ERROR_MESSAGES.pattern, '+79990002233');
-            this.tooltips['phoneNumber'].isShow = true;
+        if (this.registrationForm.controls['phoneNumber'].touched || this.isSubmitClicked) {
+            if (this.registrationForm.getError('required', ['phoneNumber'])) {
+                this.tooltips['phoneNumber'].tooltipText =
+                    this.tooltips['phoneNumber'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['phoneNumber'].isShow = true;
+            }
+            if (this.registrationForm.getError('pattern', ['phoneNumber'])) {
+                this.tooltips['phoneNumber'].tooltipText = this.tooltips['phoneNumber'].tooltipText +
+                    this.utils.insertValueInTooltipMessage(
+                        INPUT_TOOLTIP_ERROR_MESSAGES.pattern, '+79990002233');
+                this.tooltips['phoneNumber'].isShow = true;
+            }
         }
     }
 
     setTooltipMessagesForCity() {
-        if (this.registrationForm.getError('required', ['city'])) {
-            this.tooltips['city'].tooltipText =
-                this.tooltips['city'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['city'].isShow = true;
+        if (this.registrationForm.controls['city'].touched || this.isSubmitClicked) {
+            if (this.registrationForm.getError('required', ['city'])) {
+                this.tooltips['city'].tooltipText =
+                    this.tooltips['city'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['city'].isShow = true;
+            }
         }
     }
 
     setTooltipMessagesForStreet() {
-        if (this.registrationForm.getError('required', ['street'])) {
-            this.tooltips['street'].tooltipText =
-                this.tooltips['street'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['street'].isShow = true;
+        if (this.registrationForm.controls['street'].touched || this.isSubmitClicked) {
+            if (this.registrationForm.getError('required', ['street'])) {
+                this.tooltips['street'].tooltipText =
+                    this.tooltips['street'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['street'].isShow = true;
+            }
         }
     }
 
     setTooltipMessagesForBuilding() {
-        if (this.registrationForm.getError('required', ['building'])) {
-            this.tooltips['building'].tooltipText =
-                this.tooltips['building'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['building'].isShow = true;
+        if (this.registrationForm.controls['building'].touched || this.isSubmitClicked) {
+            if (this.registrationForm.getError('required', ['building'])) {
+                this.tooltips['building'].tooltipText =
+                    this.tooltips['building'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['building'].isShow = true;
+            }
         }
     }
 

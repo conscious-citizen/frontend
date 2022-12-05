@@ -27,11 +27,23 @@ export class MapComponent implements OnInit, AfterViewInit {
         /*const openModalWindow = this.openModalWindow;
         const dialogService = this.dialogService;*/
         this.waitForMapLoad().then(()=> {
+            let searchControl = new ymaps.control.SearchControl({
+                options: {
+                    provider: 'yandex#map',
+                    noPlacemark: true,
+                    noPopup: true,
+                    boundedBy: [[53.43594181755453, 49.81755014927146],[53.129779887404894, 50.40531870395897]],
+                    kind: 'house',
+                    fitMaxWidth: true
+                }
+            });
             this.map = new ymaps.Map("map", {
                 center: [53.2123113, 50.1793168],
-                zoom: 15
+                zoom: 15,
+                controls: [searchControl]
             });
             this.map.events.add('click', (e: any) => {
+                console.log(e.get('coords'));
                 this.openModalWindow();
                 /*if (!map.balloon.isOpen()) {
                     const coords = e.get('coords');

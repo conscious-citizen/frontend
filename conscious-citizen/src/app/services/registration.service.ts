@@ -19,6 +19,6 @@ export class RegistrationService {
     registration(user: User) {
         console.log(user)
         return this.http.post(API_ROUTES.REGISTRATION_URL, {username: user.login, password: user.password, phoneNumber: user.phoneNumber,firstName: user.firstName,
-            lastName: user.lastName,patronymic: user.patronymic,email: user.eMail, city: user.city, street: user.street, house: '', apartment: 'asd', role: ROLES.ROLE_USER}, httpOptions);
+            lastName: user.lastName,patronymic: user.patronymic,email: user.email, city: user.city, street: user.street, house: 'house', apartment: 'asd', role: ROLES.ROLE_USER}, httpOptions);
     }
 }

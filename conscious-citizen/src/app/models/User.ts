@@ -5,7 +5,7 @@ export class User {
     lastName: string = '';
     patronymic: string = '';
     phoneNumber: string = '';
-    eMail: string = '';
+    email: string = '';
     city: string = '';
     street: string = '';
     login: string = '';
@@ -17,7 +17,7 @@ export class User {
                 lastName: string,
                 patronymic: string,
                 phoneNumber: string,
-                eMail: string,
+                email: string,
                 city: string,
                 street: string,
                 /*house: string,*/
@@ -29,7 +29,7 @@ export class User {
         this.lastName = lastName;
         this.patronymic = patronymic;
         this.phoneNumber = phoneNumber;
-        this.eMail = eMail;
+        this.email = email;
         this.city = city;
         this.street = street;
         this.login = login;

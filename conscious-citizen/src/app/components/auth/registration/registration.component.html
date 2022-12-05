@@ -6,7 +6,7 @@
             </div>
         </nb-card-header>
         <nb-card-body class="registration-form__body">
-            <form autocomplete="on" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <form autocomplete="on" [formGroup]="registrationForm" (ngSubmit)="onSubmit()" (click)="validateForm()">
                 <div class="body__input">
                     <label>Логин</label>
                     <input nbInput
@@ -17,7 +17,7 @@
                            [nbTooltip]="this.tooltips['login'].tooltipText"
                            [nbTooltipDisabled]="!this.tooltips['login'].isShow"
                            nbTooltipStatus="danger"
-                           [status]="changeInputStatus(registrationForm.controls['login'].invalid)">
+                           [status]="changeInputStatus('login', registrationForm.controls['login'].invalid)">
                 </div>
                 <div class="body__input">
                     <label>Почта</label>
@@ -30,7 +30,7 @@
                            [nbTooltipDisabled]="!this.tooltips['email'].isShow"
                            nbTooltipStatus="danger"
                            [textMask]="{mask: emailMask}"
-                           [status]="changeInputStatus(registrationForm.controls['email'].invalid)">
+                           [status]="changeInputStatus('email', registrationForm.controls['email'].invalid)">
                 </div>
                 <div class="body__input">
                     <label>Пароль</label>
@@ -42,7 +42,7 @@
                                [nbTooltip]="this.tooltips['password'].tooltipText"
                                [nbTooltipDisabled]="!this.tooltips['password'].isShow"
                                nbTooltipStatus="danger"
-                               [status]="changeInputStatus(registrationForm.controls['password'].invalid)"
+                               [status]="changeInputStatus('password', registrationForm.controls['password'].invalid)"
                                [formControlName]="'password'">
                         <button nbSuffix nbButton ghost (click)="toggleShowPassword(inputTypes.PASSWORD)">
                             <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
@@ -84,7 +84,7 @@
                            [nbTooltip]="this.tooltips['phoneNumber'].tooltipText"
                            [nbTooltipDisabled]="!this.tooltips['phoneNumber'].isShow"
                            nbTooltipStatus="danger"
-                           [status]="changeInputStatus(registrationForm.controls['phoneNumber'].invalid)">
+                           [status]="changeInputStatus('phoneNumber',registrationForm.controls['phoneNumber'].invalid)">
                 </div>
                 <div class="body__input">
                     <label>ФИО</label>
@@ -96,7 +96,7 @@
                         [nbTooltip]="this.tooltips['fullName'].tooltipText"
                         [nbTooltipDisabled]="!this.tooltips['fullName'].isShow"
                         nbTooltipStatus="danger"
-                        [status]="changeInputStatus(registrationForm.controls['fullName'].invalid)"
+                        [status]="changeInputStatus('fullName', registrationForm.controls['fullName'].invalid)"
                         [formControlName]="'fullName'">
                 </div>
                 <div class="body__input_address">
@@ -110,7 +110,7 @@
                             [nbTooltip]="this.tooltips['city'].tooltipText"
                             [nbTooltipDisabled]="!this.tooltips['city'].isShow"
                             nbTooltipStatus="danger"
-                            [status]="changeInputStatus(registrationForm.controls['city'].invalid)"
+                            [status]="changeInputStatus('city', registrationForm.controls['city'].invalid)"
                             [formControlName]="'city'">
                     </div>
                     <div class="street">
@@ -123,7 +123,7 @@
                             [nbTooltip]="this.tooltips['street'].tooltipText"
                             [nbTooltipDisabled]="!this.tooltips['street'].isShow"
                             nbTooltipStatus="danger"
-                            [status]="changeInputStatus(registrationForm.controls['street'].invalid)"
+                            [status]="changeInputStatus('street', registrationForm.controls['street'].invalid)"
                             [formControlName]="'street'">
                     </div>
                     <div class="building">
@@ -135,7 +135,7 @@
                                [nbTooltip]="this.tooltips['building'].tooltipText"
                                [nbTooltipDisabled]="!this.tooltips['building'].isShow"
                                nbTooltipStatus="danger"
-                               [status]="changeInputStatus(registrationForm.controls['building'].invalid)"
+                               [status]="changeInputStatus('building', registrationForm.controls['building'].invalid)"
                                [formControlName]="'building'">
                     </div>
                     <div class="letter">

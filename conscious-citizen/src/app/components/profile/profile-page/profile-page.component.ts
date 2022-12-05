@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {NbDialogService} from '@nebular/theme';
 import {CreateIncidentComponent} from '../../incident/create-incident/create-incident.component';
@@ -7,7 +7,10 @@ import {UserInfo} from "../../../models/User";
 import emailMask from 'text-mask-addons/dist/emailMask';
 import {UtilsService} from "../../../services/utils.service";
 import {UserInfoService} from "../../../services/user-info.service";
-import {take} from "rxjs";
+import {BehaviorSubject, Subject, take, takeUntil} from "rxjs";
+import {UserStoreService} from "../../../stores/user-store.service";
+import {UserCredentialsService} from "../../../services/user-credentials.service";
+import {AutoUnsubscribe} from "../../abstract/auto-unsubscribe.service";
 
 @Component({
     selector: 'app-profile',
@@ -18,7 +21,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     emailMask = emailMask;
     isSubmitClicked = false;
     isEditMode = false;
-    userInfo: UserInfo | null = null;
+    userInfo: BehaviorSubject<UserInfo> | null = null;
+    subscribe: Subject<void> = new Subject<void>();
 
     profileForm = new FormGroup({
         login: new FormControl('', [Validators.required,
@@ -48,17 +52,29 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
     constructor(private utils: UtilsService,
                 private cdr: ChangeDetectorRef,
-                private userInfoService: UserInfoService) {
+                private userInfoService: UserInfoService,
+                private userCredentialsService: UserCredentialsService,
+                private userStoreService: UserStoreService) {
+    }
+
+    ngOnDestroy(): void {
     }
 
     ngOnInit(): void {
         this.profileForm.disable();
+        this.userInfo = this.userStoreService.user;
     }
 
-    ngAfterViewInit() {
+    reSubscribe() {
+        this.subscribe.next();
+        this.subscribe.complete();
+        this.subscribe = new Subject<void>();
+    }
+
+    getUserInfo(): void {
         this.userInfoService.getUserInfo().pipe(take(1)).subscribe((res: any) => {
             let address = this.splitAddress(res.street)
-            this.userInfo = {
+            this.userStoreService.setCurrentUser({
                 city: res?.city,
                 email: res?.email,
                 fullName: res?.firstName + ' ' + res?.lastName + ' ' + res?.patronymic,
@@ -68,10 +84,26 @@ export class ProfileComponent implements OnInit, AfterViewInit {
                 building: address[1],
                 letter: address[2],
                 flatNumber: address[3],
-            }
-            this.setFieldsValue(this.userInfo);
-            console.log(res)
+            })
+            this.userInfo = this.userStoreService.user;
+            this.reSubscribe();
+            this.userInfo?.pipe(takeUntil(this.subscribe)).subscribe(userInfo => {
+                let splitName = this.utils.splitFullName(this.userInfo?.value.fullName);
+                if (this.userInfo?.value && splitName) {
+                    this.userCredentialsService.resetUserDataWithoutLogout({
+                        username: this.userInfo?.value.login,
+                        firstName: splitName[0],
+                        lastName: splitName[1],
+                        patronymic: splitName[2],
+                    });
+                    this.setFieldsValue(this.userInfo.value);
+                }
+            });
         })
+    }
+
+    ngAfterViewInit() {
+        this.getUserInfo();
     }
 
     private setFieldsValue(userInfo: UserInfo): void {
@@ -104,7 +136,9 @@ export class ProfileComponent implements OnInit, AfterViewInit {
                 city: this.profileForm.get('city')?.value,
                 street: this.buildAddress(),
                 username: this.profileForm.get('login')?.value,
-            }).pipe(take(1)).subscribe(res => console.log(res));
+            }).pipe(take(1)).subscribe(res => {
+                this.getUserInfo();
+            });
         }
     }
 

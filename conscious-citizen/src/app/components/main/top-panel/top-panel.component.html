@@ -6,11 +6,12 @@
         </div>
         <div></div>
         <div class="body__icon">
-            <p *ngIf="this.tokenService.getToken() === null" [routerLink]="'/login'">Войти</p>
+            <p *ngIf="this.userCredentialsService.getToken() === null" [routerLink]="'/login'">Войти</p>
             <nb-user *ngIf="this.checkUserName()"
                      [name]=concatName()
                      size="medium"
-                     (click)="navigateToProfile()"
+                     [nbContextMenu]="items"
+                     nbContextMenuTag="profile-context-menu"
             >
             </nb-user>
         </div>

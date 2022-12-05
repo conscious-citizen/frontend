@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
-import {User, UserInfoForUpdate} from "../models/User";
+import {User, UserInfo, UserInfoForUpdate} from "../models/User";
 import {API_ROUTES} from "../models/routes";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {TokenService} from "./token.service";
+import {UserCredentialsService} from "./user-credentials.service";
+import {Observable} from "rxjs";
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -13,10 +14,10 @@ const httpOptions = {
 })
 export class UserInfoService {
 
-    constructor(private http: HttpClient, private tokenService: TokenService) {
+    constructor(private http: HttpClient, private tokenService: UserCredentialsService) {
     }
 
-    getUserInfo() {
+    getUserInfo(): Observable<any> {
         httpOptions['headers'] = this.tokenService.setTokenHeader(httpOptions['headers']);
         return this.http.get(API_ROUTES.GET_USER_INFO, httpOptions);
     }

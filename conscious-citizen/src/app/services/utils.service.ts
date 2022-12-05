@@ -17,4 +17,8 @@ export class UtilsService {
         return form.get('fullName')?.value.split(' ');
     }
 
+    splitFullName(fullName: string | undefined): string[] | undefined {
+        return fullName ? fullName.split(' ') : undefined;
+    }
+
 }

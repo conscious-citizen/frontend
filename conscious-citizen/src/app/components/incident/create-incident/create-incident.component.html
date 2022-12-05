@@ -1,53 +1,76 @@
 <div class="modal-wripper">
-  <nb-card accent="info">
-    <nb-card-header class="modal__header">
-      Создание сообщения
-      <button nbButton size="small" class="header__button" status="danger" (click)="close()"><nb-icon icon="close-outline"></nb-icon></button>
-    </nb-card-header>
-    <nb-card-body class="modal__body">
-      <div class="body__title">Опишите проблему</div>
-      <form [formGroup]="incidentForm">
-        <div class="body__input">
-            <label>Тема сообщения</label>
-            <input nbInput
-                   fullWidth
-                   type="text"
-                   autofocus
-                   placeholder="Ваша тема"
-                   [formControlName]="'topic'">
-        </div>
-        <div class="body__input">
-            <div>Выберите тип проблемы</div>
-            <div>
-              <input type="radio" id="firstType" name="typeOfProblem" value="parking">
-              <label class="input__radio" for="firstType">Парковка</label>
-              <input type="radio" id="secondType" name="typeOfProblem" value="products">
-              <label class="input__radio" for="secondType">Просроченные продукты</label>
+    <nb-card accent="info">
+        <nb-card-header class="modal__header">
+            Создание сообщения
+            <button nbButton size="small" class="header__button" status="danger" (click)="close()">
+                <nb-icon icon="close-outline"></nb-icon>
+            </button>
+        </nb-card-header>
+        <nb-card-body class="modal__body">
+            <div class="body__title">Опишите проблему</div>
+            <form [formGroup]="incidentForm">
+                <div class="body__input">
+                    <label>Тема сообщения</label>
+                    <input nbInput
+                           fullWidth
+                           type="text"
+                           autofocus
+                           placeholder="Ваша тема"
+                           [formControlName]="'topic'">
+                </div>
+                <div class="body__input">
+                    <div>Выберите тип проблемы</div>
+                    <div>
+                        <input type="radio" id="firstType" name="typeOfProblem" value="parking">
+                        <label class="input__radio" for="firstType">Парковка</label>
+                        <input type="radio" id="secondType" name="typeOfProblem" value="products">
+                        <label class="input__radio" for="secondType">Просроченные продукты</label>
+                    </div>
+                </div>
+                <div class="body__input">
+                    <label>Сообщение</label>
+                    <textarea nbInput
+                              fullWidth
+                              type="text"
+                              rows="5"
+                              placeholder="Текст сообщения"
+                              [formControlName]="'message'"></textarea>
+                </div>
+                <!--</div>
+                <div class="body__photo">
+                    <div class="photo__img">
+                        <img src="../../../../assets/img/photo-icon.png" alt="Иконка прикрепления фотографии">
+                    </div>
+                    <label for="image_uploads">Добавить фото с устроства</label>
+                    <input name="Добавить фото" type="file" multiple id="image_uploads" style="display: none" accept=".jpg">
+                </div>-->
+                <div class="body__drop-zone"
+                     (fileDropped)="onDrop($event)"
+                     appDnd>
+                    <nb-icon icon="upload-outline" status="primary"></nb-icon>
+                    <div>
+                        Перетащите своё изображение в эту
+                        область
+                    </div>
+                    <label class="load-from-device__label" for="image_uploads">Или добвьте фото с устройства</label>
+                    <input type="file" multiple id="image_uploads" style="display: none" accept=".jpg" (change)="fileBrowseHandler($event)">
+                </div>
+                <div class="body__files-list">
+                    <div class="single-file" *ngFor="let file of files; let i = index">
+                        <nb-icon icon="file-outline"></nb-icon>
+                        <div class="single-file__description">
+                            <div>{{ file?.name }}</div>
+                            <div>{{ formatBytes(file?.size) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </nb-card-body>
+        <nb-card-footer class="modal__footer">
+            <div class="footer__button">
+                <button nbButton fullWidth status="primary" type="submit">Опубликовать сообщение</button>
             </div>
-        </div>
-        <div class="body__input">
-            <label>Сообщение</label>
-            <textarea nbInput
-                   fullWidth
-                   type="text"
-                   rows="5"
-                   placeholder="Текст сообщения"
-                   [formControlName]="'message'">
-            </textarea>
-        </div>
-        <div class="body__photo">
-          <div class="photo__img">
-            <img src="../../../../assets/img/photo-icon.png" alt="Иконка прикрепления фотографии">
-          </div>
-          Добавить фото
-        </div>
-    </form>
-    </nb-card-body>
-    <nb-card-footer class="modal__footer">
-      <div class="footer__button">
-        <button nbButton fullWidth status="primary" type="submit">Опубликовать сообщение</button>
-    </div>
-    </nb-card-footer>
-  </nb-card>
+        </nb-card-footer>
+    </nb-card>
 </div>
 
