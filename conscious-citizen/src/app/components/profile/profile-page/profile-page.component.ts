@@ -20,7 +20,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
     emailMask = emailMask;
     isSubmitClicked = false;
-    isEditMode = false;
     userInfo: BehaviorSubject<UserInfo> | null = null;
     subscribe: Subject<void> = new Subject<void>();
 
@@ -61,7 +60,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this.profileForm.disable();
         this.userInfo = this.userStoreService.user;
     }
 
@@ -111,11 +109,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
             console.log(key);
             this.profileForm.controls[key].setValue(value);
         });
-    }
-
-    onEditModeChange(): void {
-        this.isEditMode = !this.isEditMode;
-        !this.isEditMode ? this.profileForm.disable() : this.profileForm.enable();
     }
 
     onSubmit(): void {

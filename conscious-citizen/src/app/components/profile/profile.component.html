@@ -7,22 +7,10 @@
             </div>
         </nb-card-header>
         <nb-card-body class="profile-form__body">
-            <div class="body__edit" (click)="onEditModeChange()">
-                <div class="edit__text" *ngIf="!isEditMode">
-                    Режим редактирования
-                </div>
-                <div class="edit__text" *ngIf="isEditMode">
-                    Выйти из режима редактирования
-                </div>
-                <div class="edit__img">
-                    <img src="../../../assets/img/edit_icon.png" alt="Иконка редактирования">
-                </div>
-            </div>
             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
                 <div class="body__input">
                     <label>Логин</label>
                     <input nbInput
-                           [disabled]="!isEditMode"
                            fullWidth
                            type="text"
                            [formControlName]="'login'"
@@ -34,7 +22,6 @@
                 <div class="body__input">
                     <label>Почта</label>
                     <input nbInput
-                           [disabled]="!isEditMode"
                            fullWidth
                            type="text"
                            [formControlName]="'email'"
@@ -47,7 +34,6 @@
                 <div class="body__input">
                     <label>Телефон</label>
                     <input nbInput
-                           [disabled]="!isEditMode"
                            fullWidth
                            type="text"
                            [formControlName]="'phoneNumber'"
@@ -59,7 +45,6 @@
                 <div class="body__input">
                     <label>ФИО</label>
                     <input
-                        [disabled]="!isEditMode"
                         nbInput
                         fullWidth
                         type="text"
@@ -73,7 +58,6 @@
                     <div class="city">
                         <label>Город</label>
                         <input
-                            [disabled]="!isEditMode"
                             nbInput
                             fullWidth
                             type="text"
@@ -87,7 +71,6 @@
                         <label>Улица</label>
                         <input
                             nbInput
-                            [disabled]="!isEditMode"
                             fullWidth
                             type="text"
                             [formControlName]="'street'"
@@ -99,7 +82,6 @@
                     <div class="building">
                         <label>Дом</label>
                         <input nbInput
-                               [disabled]="!isEditMode"
                                fullWidth
                                type="text"
                                [formControlName]="'building'"
@@ -111,7 +93,6 @@
                     <div class="letter">
                         <label>Литер</label>
                         <input nbInput
-                               [disabled]="!isEditMode"
                                fullWidth
                                type="text"
                                [formControlName]="'letter'">
@@ -119,13 +100,12 @@
                     <div class="flat-number">
                         <label>Квартира</label>
                         <input nbInput
-                               [disabled]="!isEditMode"
                                fullWidth
                                type="text"
                                [formControlName]="'flatNumber'">
                     </div>
                 </div>
-                <div class="body__button" *ngIf="isEditMode">
+                <div class="body__button">
                     <button nbButton fullWidth status="primary" type="submit">СОХРАНИТЬ ДАННЫЕ</button>
                 </div>
             </form>
