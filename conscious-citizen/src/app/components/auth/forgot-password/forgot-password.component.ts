@@ -71,7 +71,7 @@ export class ForgotPasswordComponent implements OnInit {
                     user_email: this.forgotPasswordForm.controls['email'].value
                 }
             ).subscribe((res) => {
-
+                this.router.navigate(['/login']);
             });
         }
 

@@ -1,4 +1,7 @@
 <div class="registration-wrapper">
+    <div class="registration-alert">
+        <nb-alert *ngIf="isAlertActive" status="success" closable (close)="onCloseAlert()">Вы успешно зарегистрировались!</nb-alert>
+    </div>
     <nb-card size="large" class="registration-form">
         <nb-card-header class="registration-form__header">
             <div class="header__text">

@@ -19,6 +19,7 @@ export class RegistrationComponent implements OnInit {
     inputTypes = INPUT_TYPES;
     isSubmitClicked = false;
     isRepeatPasswordValid = true;
+    isAlertActive = false;
 
     registrationForm = new FormGroup({
         login: new FormControl('', [Validators.required,
@@ -76,9 +77,14 @@ export class RegistrationComponent implements OnInit {
                 this.registrationForm.controls['login'].value,
                 this.registrationForm.controls['password'].value
             )).subscribe((res) => {
-                this.router.navigate(['/login']);
+                this.isAlertActive = true;
             });
         }
+    }
+
+    onCloseAlert(): void {
+        this.isAlertActive = false;
+        this.router.navigate(['/login']);
     }
 
     validateForm(): void {
