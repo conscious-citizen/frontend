@@ -113,8 +113,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
     onSubmit(): void {
         this.isSubmitClicked = true;
-        this.resetTooltipMessages();
-        this.setTooltipTextForInputs();
+        this.validateForm();
         if (!this.profileForm.invalid) {
             let splitFullName = this.utils.splitFullNameOfForm(this.profileForm);
             this.cdr.detectChanges();
@@ -150,8 +149,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
         return address.split('|');
     }
 
-    changeInputStatus(validatorStateInvalid: boolean): string {
-        if (validatorStateInvalid && this.isSubmitClicked) {
+    changeInputStatus(formControlName:string, validatorStateInvalid: boolean): string {
+        if (validatorStateInvalid && (this.profileForm.controls[formControlName].touched || this.isSubmitClicked)) {
             return 'danger';
         } else {
             return 'basic';
@@ -168,82 +167,97 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     }
 
     setTooltipMessagesForLogin() {
-        if (this.profileForm.getError('required', ['login'])) {
-            this.tooltips['login'].tooltipText =
-                this.tooltips['login'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['login'].isShow = true;
-        }
-        if (this.profileForm.getError('pattern', ['login'])) {
-            this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
-                this.utils.insertValueInTooltipMessage(
-                    INPUT_TOOLTIP_ERROR_MESSAGES.pattern, 'латинские буквы и знаки подчёркивания');
-            this.tooltips['login'].isShow = true;
-        }
-        if (this.profileForm.getError('minlength', ['login'])) {
-            this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
-                this.utils.insertValueInTooltipMessage(
-                    INPUT_TOOLTIP_ERROR_MESSAGES.minLength, '5');
-            this.tooltips['login'].isShow = true;
-        }
-        if (this.profileForm.getError('maxlength', ['login'])) {
-            this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
-                this.utils.insertValueInTooltipMessage(
-                    INPUT_TOOLTIP_ERROR_MESSAGES.maxLength, '50');
-            this.tooltips['login'].isShow = true;
+        if (this.profileForm.controls['login'].touched || this.isSubmitClicked) {
+            if (this.profileForm.getError('required', ['login'])) {
+                this.tooltips['login'].tooltipText =
+                    this.tooltips['login'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['login'].isShow = true;
+            }
+            if (this.profileForm.getError('pattern', ['login'])) {
+                this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
+                    this.utils.insertValueInTooltipMessage(
+                        INPUT_TOOLTIP_ERROR_MESSAGES.pattern, 'строчные латинские буквы и знаки подчёркивания');
+                this.tooltips['login'].isShow = true;
+            }
+            if (this.profileForm.getError('minlength', ['login'])) {
+                this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
+                    this.utils.insertValueInTooltipMessage(
+                        INPUT_TOOLTIP_ERROR_MESSAGES.minLength, '5');
+                this.tooltips['login'].isShow = true;
+            }
+            if (this.profileForm.getError('maxlength', ['login'])) {
+                this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
+                    this.utils.insertValueInTooltipMessage(
+                        INPUT_TOOLTIP_ERROR_MESSAGES.maxLength, '50');
+                this.tooltips['login'].isShow = true;
+            }
         }
     }
 
     setTooltipMessagesForEmail() {
-        if (this.profileForm.getError('required', ['email'])) {
-            this.tooltips['email'].tooltipText =
-                this.tooltips['email'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['email'].isShow = true;
-        }
-        if (this.profileForm.getError('email', ['email'])) {
-            this.tooltips['email'].tooltipText =
-                this.tooltips['email'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.email);
-            this.tooltips['email'].isShow = true;
+        if (this.profileForm.controls['email'].touched || this.isSubmitClicked) {
+            if (this.profileForm.getError('required', ['email'])) {
+                this.tooltips['email'].tooltipText =
+                    this.tooltips['email'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['email'].isShow = true;
+            }
+            if (this.profileForm.getError('email', ['email'])) {
+                this.tooltips['email'].tooltipText =
+                    this.tooltips['email'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.email);
+                this.tooltips['email'].isShow = true;
+            }
         }
     }
 
     setTooltipMessagesForPhoneNumber() {
-        if (this.profileForm.getError('required', ['phoneNumber'])) {
-            this.tooltips['phoneNumber'].tooltipText =
-                this.tooltips['phoneNumber'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['phoneNumber'].isShow = true;
-        }
-        if (this.profileForm.getError('pattern', ['phoneNumber'])) {
-            this.tooltips['phoneNumber'].tooltipText = this.tooltips['phoneNumber'].tooltipText +
-                this.utils.insertValueInTooltipMessage(
-                    INPUT_TOOLTIP_ERROR_MESSAGES.pattern, '+79990002233');
-            this.tooltips['phoneNumber'].isShow = true;
+        if (this.profileForm.controls['phoneNumber'].touched || this.isSubmitClicked) {
+            if (this.profileForm.getError('required', ['phoneNumber'])) {
+                this.tooltips['phoneNumber'].tooltipText =
+                    this.tooltips['phoneNumber'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['phoneNumber'].isShow = true;
+            }
+            if (this.profileForm.getError('pattern', ['phoneNumber'])) {
+                this.tooltips['phoneNumber'].tooltipText = this.tooltips['phoneNumber'].tooltipText +
+                    this.utils.insertValueInTooltipMessage(
+                        INPUT_TOOLTIP_ERROR_MESSAGES.pattern, '+79990002233');
+                this.tooltips['phoneNumber'].isShow = true;
+            }
         }
     }
 
     setTooltipMessagesForCity() {
-        if (this.profileForm.getError('required', ['city'])) {
-            this.tooltips['city'].tooltipText =
-                this.tooltips['city'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['city'].isShow = true;
+        if (this.profileForm.controls['city'].touched || this.isSubmitClicked) {
+            if (this.profileForm.getError('required', ['city'])) {
+                this.tooltips['city'].tooltipText =
+                    this.tooltips['city'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['city'].isShow = true;
+            }
         }
     }
 
     setTooltipMessagesForStreet() {
-        if (this.profileForm.getError('required', ['street'])) {
-            this.tooltips['street'].tooltipText =
-                this.tooltips['street'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['street'].isShow = true;
+        if (this.profileForm.controls['street'].touched || this.isSubmitClicked) {
+            if (this.profileForm.getError('required', ['street'])) {
+                this.tooltips['street'].tooltipText =
+                    this.tooltips['street'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['street'].isShow = true;
+            }
         }
     }
 
     setTooltipMessagesForBuilding() {
-        if (this.profileForm.getError('required', ['building'])) {
-            this.tooltips['building'].tooltipText =
-                this.tooltips['building'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['building'].isShow = true;
+        if (this.profileForm.controls['building'].touched || this.isSubmitClicked) {
+            if (this.profileForm.getError('required', ['building'])) {
+                this.tooltips['building'].tooltipText =
+                    this.tooltips['building'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['building'].isShow = true;
+            }
         }
     }
-
+    validateForm(): void {
+        this.resetTooltipMessages();
+        this.setTooltipTextForInputs();
+    }
     resetTooltipMessages() {
         Object.entries(this.tooltips).forEach(([key, value]) => {
             this.tooltips[key].tooltipText = '';

@@ -8,6 +8,7 @@ import {UserCredentialsService} from "../../../services/user-credentials.service
 import {Router} from "@angular/router";
 import {take} from "rxjs";
 import {UserInfoService} from "../../../services/user-info.service";
+import * as Console from "console";
 
 @Component({
     selector: 'app-login',
@@ -43,8 +44,9 @@ export class LoginComponent implements OnInit {
 
     onSubmit() {
         this.isSubmitClicked = true;
-        this.resetTooltipMessages();
-        this.setTooltipTextForInputs();
+        /*  this.resetTooltipMessages();
+          this.setTooltipTextForInputs();*/
+        this.validateForm();
         if (!this.loginForm.invalid) {
             this.loginService.login({
                 user_name: this.loginForm.controls['login'].value,
@@ -70,8 +72,14 @@ export class LoginComponent implements OnInit {
 
     }
 
-    changeInputStatus(validatorStateInvalid: boolean): string {
-        if (validatorStateInvalid && this.isSubmitClicked) {
+    validateForm(): void {
+        this.resetTooltipMessages();
+        this.setTooltipTextForInputs();
+    }
+
+    changeInputStatus(formControlName: string, validatorStateInvalid: boolean): string {
+        if (validatorStateInvalid && (this.loginForm.controls[formControlName].touched || this.isSubmitClicked))
+        {
             return 'danger';
         } else {
             return 'basic';
@@ -84,42 +92,46 @@ export class LoginComponent implements OnInit {
     }
 
     setTooltipMessagesForLogin() {
-        if (this.loginForm.getError('required', ['login'])) {
-            this.tooltips['login'].tooltipText =
-                this.tooltips['login'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['login'].isShow = true;
-        }
-        if (this.loginForm.getError('pattern', ['login'])) {
-            this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
-                this.utils.insertValueInTooltipMessage(
-                    INPUT_TOOLTIP_ERROR_MESSAGES.pattern, 'латинские буквы и знаки подчёркивания');
-            this.tooltips['login'].isShow = true;
-        }
-        if (this.loginForm.getError('minlength', ['login'])) {
-            this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
-                this.utils.insertValueInTooltipMessage(
-                    INPUT_TOOLTIP_ERROR_MESSAGES.minLength, '5');
-            this.tooltips['login'].isShow = true;
-        }
-        if (this.loginForm.getError('maxlength', ['login'])) {
-            this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
-                this.utils.insertValueInTooltipMessage(
-                    INPUT_TOOLTIP_ERROR_MESSAGES.maxLength, '50');
-            this.tooltips['login'].isShow = true;
+        if (this.loginForm.controls['login'].touched || this.isSubmitClicked) {
+            if (this.loginForm.getError('required', ['login'])) {
+                this.tooltips['login'].tooltipText =
+                    this.tooltips['login'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['login'].isShow = true;
+            }
+            if (this.loginForm.getError('pattern', ['login'])) {
+                this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
+                    this.utils.insertValueInTooltipMessage(
+                        INPUT_TOOLTIP_ERROR_MESSAGES.pattern, 'строчные латинские буквы и знаки подчёркивания');
+                this.tooltips['login'].isShow = true;
+            }
+            if (this.loginForm.getError('minlength', ['login'])) {
+                this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
+                    this.utils.insertValueInTooltipMessage(
+                        INPUT_TOOLTIP_ERROR_MESSAGES.minLength, '5');
+                this.tooltips['login'].isShow = true;
+            }
+            if (this.loginForm.getError('maxlength', ['login'])) {
+                this.tooltips['login'].tooltipText = this.tooltips['login'].tooltipText +
+                    this.utils.insertValueInTooltipMessage(
+                        INPUT_TOOLTIP_ERROR_MESSAGES.maxLength, '50');
+                this.tooltips['login'].isShow = true;
+            }
         }
     }
 
     setTooltipMessagesForPassword() {
-        if (this.loginForm.getError('required', ['password'])) {
-            this.tooltips['password'].tooltipText =
-                this.tooltips['password'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
-            this.tooltips['password'].isShow = true;
-        }
-        if (this.loginForm.getError('pattern', ['password'])) {
-            this.tooltips['password'].tooltipText = this.tooltips['password'].tooltipText +
-                this.utils.insertValueInTooltipMessage(
-                    INPUT_TOOLTIP_ERROR_MESSAGES.pattern, 'минимум 8 символов, минимум 1 заглавная буква, минимум 1 число минимум 1 из символов #?!@$ %^&*-');
-            this.tooltips['password'].isShow = true;
+        if (this.loginForm.controls['password'].touched || this.isSubmitClicked) {
+            if (this.loginForm.getError('required', ['password'])) {
+                this.tooltips['password'].tooltipText =
+                    this.tooltips['password'].tooltipText + (INPUT_TOOLTIP_ERROR_MESSAGES.required);
+                this.tooltips['password'].isShow = true;
+            }
+            if (this.loginForm.getError('pattern', ['password'])) {
+                this.tooltips['password'].tooltipText = this.tooltips['password'].tooltipText +
+                    this.utils.insertValueInTooltipMessage(
+                        INPUT_TOOLTIP_ERROR_MESSAGES.pattern, 'минимум 8 символов, минимум 1 заглавная и 1 строчная буква, минимум 1 число минимум 1 из символов #?!@$ %^&*-');
+                this.tooltips['password'].isShow = true;
+            }
         }
     }
 
