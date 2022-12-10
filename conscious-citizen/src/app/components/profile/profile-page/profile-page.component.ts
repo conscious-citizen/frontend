@@ -22,6 +22,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     isSubmitClicked = false;
     userInfo: BehaviorSubject<UserInfo> | null = null;
     subscribe: Subject<void> = new Subject<void>();
+    selectedItem = '1';
+
 
     profileForm = new FormGroup({
         login: new FormControl('', [Validators.required,
@@ -125,7 +127,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
                 email: this.profileForm.get('email')?.value,
                 /*house: this.profileForm.controls['building'].value,
                 apartament: this.profileForm.controls['flatNumber'].value,*/
-                city: this.profileForm.get('city')?.value,
+                city: 'Самара',
                 street: this.buildAddress(),
                 username: this.profileForm.get('login')?.value,
             }).pipe(take(1)).subscribe(res => {
