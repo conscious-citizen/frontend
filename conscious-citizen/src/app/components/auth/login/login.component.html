@@ -6,7 +6,7 @@
             </div>
         </nb-card-header>
         <nb-card-body class="login-form__body">
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" (click)="validateForm()">
                 <div class="body__input">
                     <label>Логин</label>
                     <input nbInput
@@ -17,7 +17,7 @@
                            [nbTooltip]="this.tooltips['login'].tooltipText"
                            [nbTooltipDisabled]="!this.tooltips['login'].isShow"
                            nbTooltipStatus="danger"
-                           [status]="changeInputStatus(loginForm.controls['login'].invalid)">
+                           [status]="changeInputStatus('login', loginForm.controls['login'].invalid)">
                 </div>
                 <div class="body__input">
                     <label>Пароль</label>
@@ -30,7 +30,7 @@
                                [nbTooltip]="this.tooltips['password'].tooltipText"
                                [nbTooltipDisabled]="!this.tooltips['password'].isShow"
                                nbTooltipStatus="danger"
-                               [status]="changeInputStatus(loginForm.controls['password'].invalid)">
+                               [status]="changeInputStatus('password', loginForm.controls['password'].invalid)" >
                         <button nbSuffix nbButton ghost (click)="toggleShowPassword()">
                             <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
                                      pack="eva"

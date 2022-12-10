@@ -7,7 +7,7 @@
             </div>
         </nb-card-header>
         <nb-card-body class="profile-form__body">
-            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()"  (click)="validateForm()">
                 <div class="body__input">
                     <label>Логин</label>
                     <input nbInput
@@ -17,7 +17,7 @@
                            [nbTooltip]="this.tooltips['login'].tooltipText"
                            [nbTooltipDisabled]="!this.tooltips['login'].isShow"
                            nbTooltipStatus="danger"
-                           [status]="changeInputStatus(profileForm.controls['login'].invalid)">
+                           [status]="changeInputStatus('login', profileForm.controls['login'].invalid)">
                 </div>
                 <div class="body__input">
                     <label>Почта</label>
@@ -29,7 +29,7 @@
                            [nbTooltipDisabled]="!this.tooltips['email'].isShow"
                            nbTooltipStatus="danger"
                            [textMask]="{mask: emailMask}"
-                           [status]="changeInputStatus(profileForm.controls['email'].invalid)">
+                           [status]="changeInputStatus('email', profileForm.controls['email'].invalid)">
                 </div>
                 <div class="body__input">
                     <label>Телефон</label>
@@ -40,7 +40,7 @@
                            [nbTooltip]="this.tooltips['phoneNumber'].tooltipText"
                            [nbTooltipDisabled]="!this.tooltips['phoneNumber'].isShow"
                            nbTooltipStatus="danger"
-                           [status]="changeInputStatus(profileForm.controls['phoneNumber'].invalid)">
+                           [status]="changeInputStatus('phoneNumber',profileForm.controls['phoneNumber'].invalid)">
                 </div>
                 <div class="body__input">
                     <label>ФИО</label>
@@ -52,7 +52,7 @@
                         [nbTooltip]="this.tooltips['fullName'].tooltipText"
                         [nbTooltipDisabled]="!this.tooltips['fullName'].isShow"
                         nbTooltipStatus="danger"
-                        [status]="changeInputStatus(profileForm.controls['fullName'].invalid)">
+                        [status]="changeInputStatus('fullName', profileForm.controls['fullName'].invalid)">
                 </div>
                 <div class="body__input_address">
                     <div class="city">
@@ -65,7 +65,7 @@
                             [nbTooltip]="this.tooltips['city'].tooltipText"
                             [nbTooltipDisabled]="!this.tooltips['city'].isShow"
                             nbTooltipStatus="danger"
-                            [status]="changeInputStatus(profileForm.controls['city'].invalid)">
+                            [status]="changeInputStatus('city', profileForm.controls['city'].invalid)">
                     </div>
                     <div class="street">
                         <label>Улица</label>
@@ -77,7 +77,7 @@
                             [nbTooltip]="this.tooltips['street'].tooltipText"
                             [nbTooltipDisabled]="!this.tooltips['street'].isShow"
                             nbTooltipStatus="danger"
-                            [status]="changeInputStatus(profileForm.controls['street'].invalid)">
+                            [status]="changeInputStatus('street', profileForm.controls['street'].invalid)">
                     </div>
                     <div class="building">
                         <label>Дом</label>
@@ -88,7 +88,7 @@
                                [nbTooltip]="this.tooltips['building'].tooltipText"
                                [nbTooltipDisabled]="!this.tooltips['building'].isShow"
                                nbTooltipStatus="danger"
-                               [status]="changeInputStatus(profileForm.controls['building'].invalid)">
+                               [status]="changeInputStatus('building',profileForm.controls['building'].invalid)">
                     </div>
                     <div class="letter">
                         <label>Литер</label>
