@@ -10,7 +10,7 @@ import {
     NbDialogModule,
     NbDialogService,
     NbFormFieldModule, NbIconModule,
-    NbInputModule,
+    NbInputModule, NbAlertModule,
     NbLayoutModule, NbMenuModule, NbMenuService,
     NbStatusService, NbTabsetModule,
     NbThemeModule, NbTooltipModule, NbUserModule
@@ -69,6 +69,7 @@ import {DndDirective} from "./directives/dnd.directive";
         NbIconModule,
         NbButtonModule,
         NbEvaIconsModule,
+        NbAlertModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         NbTooltipModule,
