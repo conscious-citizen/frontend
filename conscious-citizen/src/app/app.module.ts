@@ -12,8 +12,8 @@ import {
     NbFormFieldModule, NbIconModule,
     NbInputModule, NbAlertModule,
     NbLayoutModule, NbMenuModule, NbMenuService,
-    NbStatusService, NbTabsetModule,
-    NbThemeModule, NbTooltipModule, NbUserModule, NbSelectModule
+    NbStatusService, NbTabsetModule, NbToggleModule,
+    NbThemeModule, NbTooltipModule, NbUserModule, NbSelectModule,
 } from "@nebular/theme";
 import {NbEvaIconsModule} from "@nebular/eva-icons";
 import {LoginComponent} from "./components/auth/login/login.component";
@@ -70,6 +70,7 @@ import {DndDirective} from "./directives/dnd.directive";
         NbButtonModule,
         NbEvaIconsModule,
         NbAlertModule,
+        NbToggleModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         NbTooltipModule,
