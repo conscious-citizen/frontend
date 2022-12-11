@@ -57,15 +57,10 @@
                 <div class="body__input_address">
                     <div class="city">
                         <label>Город</label>
-                        <input
-                            nbInput
-                            fullWidth
-                            type="text"
-                            [formControlName]="'city'"
-                            [nbTooltip]="this.tooltips['city'].tooltipText"
-                            [nbTooltipDisabled]="!this.tooltips['city'].isShow"
-                            nbTooltipStatus="danger"
-                            [status]="changeInputStatus('city', profileForm.controls['city'].invalid)">
+                        <br>
+                        <nb-select placeholder="Самара" [(selected)]="selectedItem" shape="rectangle">
+                            <nb-option value="1">Самара</nb-option>
+                        </nb-select>
                     </div>
                     <div class="street">
                         <label>Улица</label>

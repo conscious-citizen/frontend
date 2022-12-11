@@ -13,7 +13,7 @@ import {
     NbInputModule, NbAlertModule,
     NbLayoutModule, NbMenuModule, NbMenuService,
     NbStatusService, NbTabsetModule,
-    NbThemeModule, NbTooltipModule, NbUserModule
+    NbThemeModule, NbTooltipModule, NbUserModule, NbSelectModule
 } from "@nebular/theme";
 import {NbEvaIconsModule} from "@nebular/eva-icons";
 import {LoginComponent} from "./components/auth/login/login.component";
@@ -79,6 +79,7 @@ import {DndDirective} from "./directives/dnd.directive";
         NbDialogModule.forRoot(),
         SwiperModule,
         NbTabsetModule,
+        NbSelectModule,
         NbContextMenuModule,
         NbMenuModule.forRoot(),
     ],
