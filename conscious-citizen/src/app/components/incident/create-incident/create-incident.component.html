@@ -8,7 +8,7 @@
         </nb-card-header>
         <nb-card-body class="modal__body">
             <div class="body__title">Опишите проблему</div>
-            <form [formGroup]="incidentForm">
+            <form [formGroup]="incidentForm" (ngSubmit)="onSubmit()">
                 <div class="body__input">
                     <label>Тема сообщения</label>
                     <input nbInput
@@ -68,7 +68,7 @@
         </nb-card-body>
         <nb-card-footer class="modal__footer">
             <div class="footer__button">
-                <button nbButton fullWidth status="primary" type="submit">Опубликовать сообщение</button>
+                <button nbButton fullWidth status="primary" type="submit" (click)="onSubmit()">Опубликовать сообщение</button>
             </div>
         </nb-card-footer>
     </nb-card>

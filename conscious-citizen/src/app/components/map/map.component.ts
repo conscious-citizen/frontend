@@ -44,7 +44,11 @@ export class MapComponent implements OnInit, AfterViewInit {
             });
             this.map.events.add('click', (e: any) => {
                 console.log(e.get('coords'));
-                this.openModalWindow();
+                ymaps.geocode(e.get('coords')).then((res: any) => {
+                    let firstGeoObject = res.geoObjects.get(0);
+                    this.openModalWindow(e.get('coords'),firstGeoObject.getAddressLine());
+                    console.log(firstGeoObject.getAddressLine());
+                })
                 /*if (!map.balloon.isOpen()) {
                     const coords = e.get('coords');
                     map.balloon.open(coords, {
@@ -70,8 +74,13 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     }
 
-    openModalWindow(): void {
-        this.dialogService.open(CreateIncidentComponent, {closeOnBackdropClick: true});
+    openModalWindow(coords:number[], address: string): void {
+        this.dialogService.open(CreateIncidentComponent, {closeOnBackdropClick: true, context: {
+            data:{
+                coords: coords,
+                address: address,
+            }
+        }});
     }
 
     openModalWindow1(): void {
