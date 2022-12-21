@@ -138,6 +138,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
                 this.getUserInfo();
             });
           if (this.userCredentialsService.getUsername()!= this.profileForm.get('login')?.value){
+              this.userCredentialsService.signOut();
               this.router.navigate(['/login'])
           }
         }
