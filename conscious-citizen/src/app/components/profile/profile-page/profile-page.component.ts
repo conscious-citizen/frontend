@@ -11,6 +11,7 @@ import {BehaviorSubject, Subject, take, takeUntil} from "rxjs";
 import {UserStoreService} from "../../../stores/user-store.service";
 import {UserCredentialsService} from "../../../services/user-credentials.service";
 import {AutoUnsubscribe} from "../../abstract/auto-unsubscribe.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-profile',
@@ -23,6 +24,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     userInfo: BehaviorSubject<UserInfo> | null = null;
     subscribe: Subject<void> = new Subject<void>();
     selectedItem = '1';
+
 
 
     profileForm = new FormGroup({
@@ -55,7 +57,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
                 private cdr: ChangeDetectorRef,
                 private userInfoService: UserInfoService,
                 private userCredentialsService: UserCredentialsService,
-                private userStoreService: UserStoreService) {
+                private userStoreService: UserStoreService,
+                private router: Router,) {
     }
 
     ngOnDestroy(): void {
@@ -72,6 +75,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     }
 
     getUserInfo(): void {
+
         this.userInfoService.getUserInfo().pipe(take(1)).subscribe((res: any) => {
             let address = this.splitAddress(res.street)
             this.userStoreService.setCurrentUser({
@@ -124,15 +128,18 @@ export class ProfileComponent implements OnInit, AfterViewInit {
                 lastName: splitFullName[1],
                 patronymic: splitFullName[2],
                 phoneNumber: this.profileForm.get('phoneNumber')?.value,
-                email: this.profileForm.get('email')?.value,
+
                 /*house: this.profileForm.controls['building'].value,
                 apartament: this.profileForm.controls['flatNumber'].value,*/
                 city: 'Самара',
                 street: this.buildAddress(),
-                username: this.profileForm.get('login')?.value,
+                login: this.profileForm.get('login')?.value,
             }).pipe(take(1)).subscribe(res => {
                 this.getUserInfo();
             });
+          if (this.userCredentialsService.getUsername()!= this.profileForm.get('login')?.value){
+              this.router.navigate(['/login'])
+          }
         }
     }
 
