@@ -17,7 +17,7 @@ export class EventEntity {
 export class CreateIncidentEntity {
     messageSubject: string | undefined;
     messageText: string | undefined;
-    photo: any;
+    photo: File[] = [];
     rubricId: number =  0;
     addressDto:
         {

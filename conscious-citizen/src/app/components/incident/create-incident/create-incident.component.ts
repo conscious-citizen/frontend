@@ -42,11 +42,14 @@ export class CreateIncidentComponent implements OnInit {
 
     async onSubmit() {
         let splitAddress = this.data.address.split(',');
+        const a: File[] = [];
+        this.files.map(file => a.push(file));//async file => await this.convertFileToBase64(file).then(file => a.push({photo: file})));
+        console.log(a);
         this.createIncidentService.createIncident({
             messageSubject: this.incidentForm.controls['topic'].value,
             messageText: this.incidentForm.controls['message'].value,
             rubricId: 0,
-            photo: this.files.map(async file => await this.convertFileToBase64(file)),
+            photo: a,
             addressDto: {
                 latitude: this.data.coords[0],
                 longitude: this.data.coords[1],
