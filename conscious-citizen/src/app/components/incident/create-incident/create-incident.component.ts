@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {NbDialogRef} from '@nebular/theme';
+import {CreateIncidentService} from "../../../services/create-incident.service";
 
 @Component({
     selector: 'app-incident',
@@ -9,6 +10,15 @@ import {NbDialogRef} from '@nebular/theme';
 })
 export class CreateIncidentComponent implements OnInit {
 
+    @Input()
+    data: {
+        coords: number[],
+        address: string,
+    } = {
+        coords: [],
+        address: '',
+    };
+
     incidentForm = new FormGroup({
         topic: new FormControl(''),
         message: new FormControl(''),
@@ -16,7 +26,7 @@ export class CreateIncidentComponent implements OnInit {
 
     files: File[] = [];
 
-    constructor(protected dialogRef: NbDialogRef<any>) {
+    constructor(protected dialogRef: NbDialogRef<any>, private createIncidentService: CreateIncidentService) {
     }
 
     ngOnInit(): void {
@@ -30,11 +40,44 @@ export class CreateIncidentComponent implements OnInit {
         },false);*/
     }
 
+    async onSubmit() {
+        let splitAddress = this.data.address.split(',');
+        const a: File[] = [];
+        this.files.map(file => a.push(file));//async file => await this.convertFileToBase64(file).then(file => a.push({photo: file})));
+        console.log(a);
+        this.createIncidentService.createIncident({
+            messageSubject: this.incidentForm.controls['topic'].value,
+            messageText: this.incidentForm.controls['message'].value,
+            rubricId: 0,
+            photo: a,
+            addressDto: {
+                latitude: this.data.coords[0],
+                longitude: this.data.coords[1],
+                city: splitAddress[0].trim(),
+                street: splitAddress[1].trim(),
+                home: splitAddress[2].trim(),
+            }
+        }).subscribe(res => {
+            console.log(res);
+        })
+    }
+
+    async convertFileToBase64(file: File): Promise<string> {
+
+        return new Promise((resolve) => {
+            let fileReader = new FileReader();
+            // @ts-ignore
+            fileReader.onload = (e) => resolve(fileReader.result);
+            fileReader.readAsDataURL(file);
+        });
+    }
+
     close() {
         this.dialogRef.close();
     }
 
     fileBrowseHandler(event: any) {
+        console.log(this.data);
         this.onDrop(event.target.files);
     }
 
