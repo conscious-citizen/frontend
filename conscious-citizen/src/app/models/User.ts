@@ -65,11 +65,11 @@ export type UserInfoForUpdate = {
     lastName: string,
     patronymic: string,
     phoneNumber: string,
-    email: string,
+/*email:string,*/
     /*house: string,
     apartament: string*/
     city: string,
     street: string,
-    username: string,
+    login: string,
     /*password: string,*/
 }
