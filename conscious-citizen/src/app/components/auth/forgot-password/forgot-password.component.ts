@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
     templateUrl: './forgot-password.component.html'
 })
 export class ForgotPasswordComponent implements OnInit {
-
+    isAlertActive = false;
     emailMask = emailMask;
     isSubmitClicked = false;
     user: any;
@@ -61,16 +61,20 @@ export class ForgotPasswordComponent implements OnInit {
             this.tooltips[key].isShow = false;
         });
     }
-
+    onCloseAlert(): void {
+        this.isAlertActive = false;
+    }
     onSubmit() {
         this.isSubmitClicked = true;
         this.resetTooltipMessages();
         this.setTooltipTextForInputs();
+        this.isAlertActive = true;
         if (!this.forgotPasswordForm.invalid) {
             this.resetPassword.forgotPassword({
                     user_email: this.forgotPasswordForm.controls['email'].value
                 }
             ).subscribe((res) => {
+
                 this.router.navigate(['/login']);
             });
         }
