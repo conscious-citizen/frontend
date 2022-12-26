@@ -1,7 +1,8 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from "@angular/core";
 import SwiperCore, {Virtual} from 'swiper';
 import {NbDialogRef} from "@nebular/theme";
 import {SwiperComponent} from "swiper/angular";
+import {Incident} from "../../../models/Incident";
 
 SwiperCore.use([Virtual]);
 
@@ -9,8 +10,11 @@ SwiperCore.use([Virtual]);
     selector: 'app-view-incident',
     templateUrl: './view-incident.component.html'
 })
-export class ViewIncidentComponent implements OnInit {
+export class ViewIncidentComponent implements OnInit, OnChanges {
     @ViewChild('swiper', {static: false}) swiper?: SwiperComponent;
+
+    @Input()
+    data: Incident | undefined;
 
     constructor(protected dialogRef: NbDialogRef<any>) {
     }
@@ -26,6 +30,10 @@ export class ViewIncidentComponent implements OnInit {
         this.swiper?.swiperRef.slidePrev(100);
     }
 
+    setIncident(incident: Incident): void {
+        this.data = incident;
+    }
+
     close() {
         this.dialogRef.close();
     }
@@ -37,5 +45,9 @@ export class ViewIncidentComponent implements OnInit {
 
     onSlideChange() {
         console.log('slide change');
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(this.data);
     }
 }

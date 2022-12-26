@@ -1,7 +1,10 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {NbDialogService} from "@nebular/theme";
+import {NbDialogRef, NbDialogService} from "@nebular/theme";
 import {CreateIncidentComponent} from "../incident/create-incident/create-incident.component";
 import {ViewIncidentComponent} from "../incident/view-incident/view-incident.component";
+import {Incident} from "../../models/Incident";
+import {ViewIncidentsService} from "../../services/view-incidents.service";
+import {take} from "rxjs";
 
 declare const ymaps: any;
 
@@ -12,8 +15,13 @@ declare const ymaps: any;
 export class MapComponent implements OnInit, AfterViewInit {
 
     map: any;
+    incidents: Incident[] = [];
+    openedDialog: NbDialogRef<any> | null = null;
 
-    constructor(private dialogService: NbDialogService) {
+    constructor(private dialogService: NbDialogService, private viewIncidentsService: ViewIncidentsService) {
+        /* this.viewIncidentsService.getIncidents().pipe(take(1)).subscribe(incidents => {
+             this.incidents = [...incidents];
+         })*/
     }
 
     ngOnInit(): void {
@@ -26,13 +34,13 @@ export class MapComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
         /*const openModalWindow = this.openModalWindow;
         const dialogService = this.dialogService;*/
-        this.waitForMapLoad().then(()=> {
+        this.waitForMapLoad().then(() => {
             let searchControl = new ymaps.control.SearchControl({
                 options: {
                     provider: 'yandex#map',
                     noPlacemark: true,
                     noPopup: true,
-                    boundedBy: [[53.43594181755453, 49.81755014927146],[53.129779887404894, 50.40531870395897]],
+                    boundedBy: [[53.43594181755453, 49.81755014927146], [53.129779887404894, 50.40531870395897]],
                     kind: 'house',
                     fitMaxWidth: true
                 }
@@ -46,45 +54,50 @@ export class MapComponent implements OnInit, AfterViewInit {
                 console.log(e.get('coords'));
                 ymaps.geocode(e.get('coords')).then((res: any) => {
                     let firstGeoObject = res.geoObjects.get(0);
-                    this.openModalWindow(e.get('coords'),firstGeoObject.getAddressLine());
+                    this.openCreateModalWindow(e.get('coords'), firstGeoObject.getAddressLine());
                     console.log(firstGeoObject.getAddressLine());
-                })
-                /*if (!map.balloon.isOpen()) {
-                    const coords = e.get('coords');
-                    map.balloon.open(coords, {
-                        contentHeader:'Событие!',
-                        contentBody:'<p>Кто-то щелкнул по карте.</p>' +
-                            '<p>Координаты щелчка: ' + [
-                                coords[0].toPrecision(6),
-                                coords[1].toPrecision(6)
-                            ].join(', ') + '</p>',
-                        contentFooter:'<sup>Щелкните еще раз</sup>'
-                    });
-                }
-                else {
-                    map.balloon.close();
-                }*/
+                });
             });
-            let myPlacemark = new ymaps.Placemark([53.2123113, 50.1793168], {
-                mousedown: this.openModalWindow1,
-            });
-            myPlacemark.events.add('click', (e: any) => this.openModalWindow1());
-            this.map.geoObjects.add(myPlacemark);
+            this.fetchData();
         })
 
     }
 
-    openModalWindow(coords:number[], address: string): void {
-        this.dialogService.open(CreateIncidentComponent, {closeOnBackdropClick: true, context: {
-            data:{
-                coords: coords,
-                address: address,
+    openCreateModalWindow(coords: number[], address: string): void {
+        this.openedDialog = this.dialogService.open(CreateIncidentComponent, {
+            closeOnBackdropClick: true, context: {
+                data: {
+                    coords: coords,
+                    address: address,
+                }
             }
-        }});
+        });
+        this.openedDialog.onClose.pipe(take(1)).subscribe(() => this.fetchData())
     }
 
-    openModalWindow1(): void {
-        this.dialogService.open(ViewIncidentComponent, {closeOnBackdropClick: true});
+    openViewModalWindow(incident: Incident): void {
+        //console.log(e.get('coords'));
+        //const coords = e.get('coords');
+        console.log(incident);
+        let ref = this.dialogService.open(ViewIncidentComponent, {
+            closeOnBackdropClick: true, context: {
+                data: incident,
+            }
+        });
+        ref.componentRef.instance.setIncident(incident);
+    }
+
+    private fetchData() {
+        this.viewIncidentsService.getIncidents().pipe(take(1)).subscribe(incidents => {
+            this.incidents = [...incidents];
+            this.incidents.forEach(incident => {
+                const myPlacemark = new ymaps.Placemark([incident?.address?.latitude, incident?.address?.longitude], {
+                    mousedown: this.openViewModalWindow,
+                });
+                myPlacemark.events.add('click', (e: any) => this.openViewModalWindow(incident));
+                this.map.geoObjects.add(myPlacemark);
+            });
+        })
     }
 
 }

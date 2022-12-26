@@ -41,6 +41,7 @@ import { SwiperModule } from 'swiper/angular';
 import {UserStoreService} from "./stores/user-store.service";
 import {NbMenuInternalService} from "@nebular/theme/components/menu/menu.service";
 import {DndDirective} from "./directives/dnd.directive";
+import {ViewIncidentsService} from "./services/view-incidents.service";
 
 @NgModule({
     declarations: [
@@ -94,6 +95,7 @@ import {DndDirective} from "./directives/dnd.directive";
         UserInfoService,
         UtilsService,
         ResetPasswordService,
+        ViewIncidentsService,
         NbMenuService,
         NbDialogService],
     bootstrap: [AppComponent]

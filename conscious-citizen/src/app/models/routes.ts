@@ -10,5 +10,6 @@ export const API_ROUTES = {
     UPDATE_USER_INFO: 'http://localhost:'+PORT+'/user/update',
     GET_ALL_EVENTS: 'http://localhost:'+PORT+'/event',
     GET_EVENT_BY_ID: 'http://localhost:'+PORT+'/event?id={id}',
+    GET_EVENT_IMAGE: 'http://localhost:'+PORT+'/event/photos/',
     CREATE_INCIDENT: 'http://localhost:'+PORT+'/event',
 }

@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {API_ROUTES} from "../models/routes";
-import {CreateIncidentEntity} from "../models/EventEntity";
+import {CreateIncidentEntity} from "../models/Incident";
 import {UserCredentialsService} from "./user-credentials.service";
 
 const httpOptions = {
