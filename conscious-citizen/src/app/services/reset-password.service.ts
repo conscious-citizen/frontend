@@ -15,7 +15,10 @@ export class ResetPasswordService {
 
     forgotPassword(user: any) {
         const body = {"email": user.user_email, "url": API_ROUTES.LOCAL_URL};
-        return this.http.post(API_ROUTES.FORGOT_PASSWORD_URL, JSON.stringify(body))
+        const formData = new FormData();
+        formData.append('email', user.user_email);
+        formData.append('url', API_ROUTES.LOCAL_URL);
+        return this.http.post(API_ROUTES.FORGOT_PASSWORD_URL, body);
     }
 
 

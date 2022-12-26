@@ -1,5 +1,5 @@
 <div class="view-incident-wrapper">
-    <nb-card accent="info">
+    <nb-card accent="info" size="giant">
         <nb-card-header class="view__header">
             <div class="header__title">{{data?.messageSubject}}</div>
             <button nbButton size="small" class="header__button" status="danger" (click)="close()">
@@ -41,15 +41,13 @@
                 <button nbButton class="button__item">
                     <nb-icon icon="edit-2-outline"></nb-icon>
                 </button>
-                <button nbButton class="button__item">
+                <button nbButton class="button__item" (click)="saveDocument()">
                     <nb-icon icon="save-outline"></nb-icon>
                 </button>
                 <button nbButton class="button__item">
                     <nb-icon icon="email-outline"></nb-icon>
                 </button>
-                <button nbButton class="button__item">
-                    <nb-icon icon="printer-outline"></nb-icon>
-                </button>
+
             </div>
         </nb-card-footer>
     </nb-card>
