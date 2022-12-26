@@ -1,13 +1,13 @@
 <div class="view-incident-wrapper">
     <nb-card accent="info">
         <nb-card-header class="view__header">
-            <div class="header__title">Новое сообщение</div>
+            <div class="header__title">{{data?.messageSubject}}</div>
             <button nbButton size="small" class="header__button" status="danger" (click)="close()">
                 <nb-icon icon="close-outline"></nb-icon>
             </button>
         </nb-card-header>
         <nb-card-body class="view__body">
-            <div class="body__title">Тема сообщения</div>
+            <div class="body__title">{{data?.rubricId === 0 ? 'Просроченные продукты' : 'Неправильная парковка'}}</div>
             <div class="swiper__button">
 
                 <button (click)="slidePrev()" nbButton class="swiper__button-left">
@@ -21,19 +21,19 @@
                         (slideChange)="onSlideChange()"
 
                 >
-                    <ng-template swiperSlide class="swiper__item"><img src="assets/img/example.png"></ng-template>
-                    <ng-template swiperSlide class="swiper__item"><img src="assets/img/example1.png"></ng-template>
-                    <ng-template swiperSlide class="swiper__item"><img src="assets/img/example.png"></ng-template>
-
+                    <ng-container *ngIf="data?.photoUrls?.length">
+                        <ng-container *ngFor="let imageUrl of data?.photoUrls">
+                            <ng-template swiperSlide class="swiper__item"><img [src]="imageUrl"></ng-template>
+                        </ng-container>
+                    </ng-container>
                 </swiper>
                 <button (click)="slideNext()" nbButton class="swiper__button-right">
                     <nb-icon icon="arrow-ios-forward-outline"></nb-icon>
                 </button>
             </div>
-            <div class="body__address">Адрес события</div>
+            <div class="body__address">{{data?.address?.city }} {{data?.address?.street}} {{data?.address?.home}}</div>
             <div class="body__message">
-                <p>Текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст
-                    сообщения текст сообщения
+                <p>{{data?.messageText}}
                 </p></div>
         </nb-card-body>
         <nb-card-footer class="view__footer">

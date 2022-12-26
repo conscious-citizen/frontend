@@ -30,14 +30,6 @@ export class CreateIncidentComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        /*window.addEventListener("dragover",function(e){
-            e = e || event;
-            e.preventDefault();
-        },false);
-        window.addEventListener("drop",function(e){
-            e = e || event;
-            e.preventDefault();
-        },false);*/
     }
 
     async onSubmit() {
@@ -53,12 +45,13 @@ export class CreateIncidentComponent implements OnInit {
             addressDto: {
                 latitude: this.data.coords[0],
                 longitude: this.data.coords[1],
-                city: splitAddress[0].trim(),
-                street: splitAddress[1].trim(),
-                home: splitAddress[2].trim(),
+                city: splitAddress[splitAddress.length - 3].trim(),
+                street: splitAddress[splitAddress.length - 2].trim(),
+                home: splitAddress[splitAddress.length - 1].trim(),
             }
         }).subscribe(res => {
             console.log(res);
+            this.dialogRef.close();
         })
     }
 
@@ -87,8 +80,6 @@ export class CreateIncidentComponent implements OnInit {
             console.log(event[i]);
             this.files.push(event[i]);
         }
-        /*if (files)
-        this.files.push(files[0]);*/
     }
 
     formatBytes(bytes = 0, decimals = 1) {
@@ -97,7 +88,7 @@ export class CreateIncidentComponent implements OnInit {
         }
         const k = 1024;
         const dm = decimals <= 0 ? 0 : decimals || 2;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        const sizes = ['Bytes', 'KB', 'MB'];
         const i = Math.floor(Math.log(bytes) / Math.log(k));
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
